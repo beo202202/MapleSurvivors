@@ -57,6 +57,7 @@ class Character:        # 첫 캐릭터
             print(f"{self.name}의 공격! {other.name}에게 물리공격{damage}의 데미지를 입혔습니다.")
 
         if other.hp <= 0:
+            other.hp = 0
             print(f"{other.name}이(가) 쓰러졌습니다.")
 
     def skill_attack(self, other):
@@ -64,6 +65,7 @@ class Character:        # 첫 캐릭터
 
     def status(self):
         print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp}")
+        print(f"{self.name}의 상태: MP {self.mp}/{self.max_mp}")
 
 
 class Beginner(Character):       # 초보자
@@ -98,6 +100,7 @@ class Knight(Character):       # 검사, '파워 스트라이크'스킬을 추�
             print(f"{self.name}의 공격! {other.name}에게 물리공격 {damage}의 데미지를 입혔습니다.")
 
         if other.hp <= 0:
+            other.hp = 0
             print(f"{other.name}이(가) 쓰러졌습니다.")
 
     def skill_attack(self, other):
@@ -117,6 +120,7 @@ class Knight(Character):       # 검사, '파워 스트라이크'스킬을 추�
                     f"{self.name}의 공격! {other.name}에게 {self.skill_name}으로 {damage}의 데미지를 입혔습니다.")
 
             if other.hp <= 0:
+                other.hp = 0
                 print(f"{other.name}이(가) 쓰러졌습니다.")
 
         else:
@@ -148,6 +152,7 @@ class Archer(Character):       # 아처
             print(f"{self.name}의 공격! {other.name}에게 물리공격 {damage}의 데미지를 입혔습니다.")
 
         if other.hp <= 0:
+            other.hp = 0
             print(f"{other.name}이(가) 쓰러졌습니다.")
 
     def skill_attack(self, other):
@@ -167,6 +172,7 @@ class Archer(Character):       # 아처
                     f"{self.name}의 공격! {other.name}에게 {self.skill_name}으로 {damage}의 데미지를 입혔습니다.")
 
             if other.hp <= 0:
+                other.hp = 0
                 print(f"{other.name}이(가) 쓰러졌습니다.")
 
         else:
@@ -197,6 +203,7 @@ class Magician(Character):       # 매지션
             print(f"{self.name}의 공격! {other.name}에게 물리공격 {damage}의 데미지를 입혔습니다.")
 
         if other.hp <= 0:
+            other.hp = 0
             print(f"{other.name}이(가) 쓰러졌습니다.")
 
     def skill_attack(self, other):
@@ -214,7 +221,9 @@ class Magician(Character):       # 매지션
 
                 print(
                     f"{self.name}의 공격! {other.name}에게 {self.skill_name}으로 {damage}의 데미지를 입혔습니다.")
+
             if other.hp <= 0:
+                other.hp = 0
                 print(f"{other.name}이(가) 쓰러졌습니다.")
 
         else:
@@ -244,6 +253,7 @@ class Rogue(Character):       # 로그
             print(f"{self.name}의 공격! {other.name}에게 물리공격 {damage}의 데미지를 입혔습니다.")
 
         if other.hp <= 0:
+            other.hp = 0
             print(f"{other.name}이(가) 쓰러졌습니다.")
 
     def skill_attack(self, other):
@@ -263,6 +273,7 @@ class Rogue(Character):       # 로그
                     f"{self.name}의 공격! {other.name}에게 {self.skill_name}으로 {damage}의 데미지를 입혔습니다.")
 
             if other.hp <= 0:
+                other.hp = 0
                 print(f"{other.name}이(가) 쓰러졌습니다.")
 
         else:
@@ -481,14 +492,18 @@ while True:
     user_input = str(
         input("전투를 하시겠습니까?\n(예(1), 종료(\"any key\")\n>>입력: "))
     if user_input == "1":
+        Screen_Clear()
         # 몬스터 중에서 랜덤으로 고르기
         monster = Select_And_Create_Monster()
-        print(f"{monster.name}을 만났습니다.")
+        print(f"{monster.name}을(를) 만났습니다.")
+        # 몬스터 상태 보여주기
+        monster.status()
 
         # 전투 하기
         while True:
             user_input = str(
                 input("(일반공격(1), 스킬공격(2), 도망가기(3), 게임종료(\"any key\")\n>>입력: "))
+            Screen_Clear()
             if user_input == "1":
                 user.physical_attack(monster)
             elif user_input == "2":
@@ -502,13 +517,16 @@ while True:
 
             # 몬스터가 죽으면 pass
             if monster.hp <= 0:
-                pass
+                break
             else:
-                # 상태 체크
+                # 몬스터 상태 보여주기
                 monster.status()
 
                 # 몬스터가 공격
                 monster.physical_attack(user)
+
+                # 유저 상태 보여주기
+                user.status()
 
                 # 상태체크 사망 시 게임을 종료하기...
                 if user.hp <= 0:
@@ -523,5 +541,5 @@ while True:
         print("user가 게임을 종료합니다.")
         break
 
-
+# 인스턴스를 초기화 할 수 있나?
 # 데코레이터를 쓸 일이 있나?
