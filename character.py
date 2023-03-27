@@ -37,8 +37,8 @@ class Character:                # 첫 캐릭터
         print("스킬을 사용할 수 없는 직업입니다.")
 
     def status(self):
-        print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp}")
-        print(f"{self.name}의 상태: MP {self.mp}/{self.max_mp}")
+        print(
+            f"{self.name}의 상태: HP {self.hp}/{self.max_hp}, MP {self.mp}/{self.max_mp}")
 
 
 class Beginner(Character):      # 초보자
@@ -49,7 +49,7 @@ class Beginner(Character):      # 초보자
         print("당신은 전직을 하지 않은 초보자입니다.")
 
 
-class Knight(Character):        # 검사, '파워 스트라이크'스킬을 추후 추가, 추후 레벨10부터 가능하게?
+class Knight(Character):        # 검사, 추후 레벨10부터 가능하게?
     def __init__(self, name, str_stat, dex_stat, int_stat, luk_stat):
         super().__init__(name, str_stat, dex_stat, int_stat, luk_stat)
         # self.max_hp = 50 + str_stat * 5 + dex_stat * 1
@@ -212,6 +212,7 @@ class Rogue(Character):         # 로그
 
     def get_job(self):
         print("로그로 전직하셨습니다.")
+        print(f"{self.skill_name}을 사용하실 수 있습니다.")
 
     def physical_attack(self, other):       # 매지션은 일반공격이 매우 약하지
         max_stat_attack = round((self.luk_stat * 4 + self.dex_stat) *
