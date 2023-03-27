@@ -20,5 +20,9 @@ class Monster:  # 몬스터, 추후 마법 공격도?
         print(
             f"{self.name}의 공격! {other.name}에게 물리공격 {damage}의 데미지를 입혔습니다.")
 
+        if other.hp <= 0:
+            other.hp = 0
+            print(f"{other.name}이(가) 쓰러졌습니다.")
+
     def status(self):
         print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp}")
