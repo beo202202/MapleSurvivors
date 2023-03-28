@@ -250,7 +250,7 @@ for i in range(6):
 
 
 pygame.mixer.music.load("sounds/Old_Main_Title.mp3")
-pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
 screen_clear()
