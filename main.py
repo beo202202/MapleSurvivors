@@ -267,7 +267,7 @@ user.get_job()
 print(f"{Colors.RESET}전직하실 {Colors.GREEN}직업{Colors.RESET}을 고르세요.")
 user_input = str(
     input(f"검사(\"1\")    아처(\"2\")   매지션(\"3\")   로그(\"4\")     그대로(\"any key\")\n>>입력(숫자): {Colors.GREEN}"))
-sound_effect = pygame.mixer.Sound("sounds/Maplestory-004.wav")  # 입력 후 출력 소리
+sound_effect = pygame.mixer.Sound("sounds/Maplestory-011.wav")  # 입력 후 출력 소리
 sound_effect.play()
 
 if (user_input == "1"):
@@ -330,9 +330,16 @@ while True:
 
             if user_input == "1":
                 user.physical_attack(monster)
+                sound_effect = pygame.mixer.Sound(
+                    "sounds/Maplestory-006.wav")  # 입력 후 출력 소리
+                sound_effect.play()
                 print("\n")
             elif user_input == "2":
                 Screen_Clear()
+
+                sound_effect = pygame.mixer.Sound(
+                    "sounds/Maplestory-008.wav")  # 입력 후 출력 소리
+                sound_effect.play()
 
                 user.skill_attack(monster)
                 print("\n")
