@@ -8,7 +8,7 @@ from monster import *
 from textcolor import *
 
 
-def Screen_Clear():
+def screen_clear():
     if platform.system == 'window':
         os.system('cls')    # 윈도우
     else:
@@ -19,7 +19,7 @@ monsters = ["달팽이", "파란 달팽이", "빨간 달팽이", "스포아",
             "주황버섯", "시니컬한 주황버섯", "초록버섯", "파란버섯", "우는 파란버섯", "뿔버섯", "돼지", "리본돼지", "파란 리본돼지", "머쉬맘"]
 
 
-def Select_And_Create_Monster():
+def select_and_create_monster():
     select_monster = random.choice(monsters)
 
     if select_monster == "달팽이":
@@ -177,7 +177,7 @@ def screen_monster(name):
 # -------------------       알고리즘 시작      --------------------------
 
 
-Screen_Clear()
+screen_clear()
 
 # pygame.init()
 pygame.mixer.init()
@@ -197,7 +197,7 @@ f.close()
 time.sleep(1)
 
 
-Screen_Clear()
+screen_clear()
 
 
 a = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
@@ -223,7 +223,7 @@ my_list_j = list(j)
 
 str_a = str_b = str_c = str_d = str_e = str_f = str_g = str_h = str_i = str_j = ""
 for i in range(len(my_list_a)):
-    Screen_Clear()
+    screen_clear()
     str_a += my_list_a[i]
     str_b += my_list_b[i]
     str_c += my_list_c[i]
@@ -240,11 +240,11 @@ for i in range(len(my_list_a)):
 
 time.sleep(2)
 
-Screen_Clear()
+screen_clear()
 
 
 for i in range(6):
-    Screen_Clear()
+    screen_clear()
     print(f"{Colors.RED}몬스터 인스턴스{Colors.RESET}를 생성할 준비 중" + "." * (i % 3))
     time.sleep(0.3)
 
@@ -253,7 +253,7 @@ pygame.mixer.music.load("sounds/Old_Main_Title.mp3")
 pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1)
 
-Screen_Clear()
+screen_clear()
 
 f = open("img/login.txt", 'r', encoding='UTF8')
 lines = f.readlines()
@@ -271,7 +271,7 @@ sound_effect = pygame.mixer.Sound("sounds/Maplestory-004.wav")  # 입력 후 출
 sound_effect.play()
 
 for i in range(6):
-    Screen_Clear()
+    screen_clear()
 
     print(f"{Colors.GREEN}{user_name} 모험가{Colors.RESET}님 환영합니다.")
     print(f"{Colors.GREEN}{user_name}{Colors.RESET} 캐릭터 생성 중" + "." * (i % 3))
@@ -307,7 +307,7 @@ while True:
 
     # Python 3.8부터 변수 한 번만 사용 가능
     # print(f"{str_stat=}\n{dex_stat=}\n{int_stat=}\n{luk_stat=}")
-    Screen_Clear()
+    screen_clear()
 
     print(
         f"주사위\n{Colors.ORANGE}STR: {str_stat}\nDEX: {dex_stat}\nINT: {int_stat}\nLUK: {luk_stat}{Colors.RESET}")
@@ -323,7 +323,7 @@ while True:
     if user_input == "1":
         break
 
-Screen_Clear()
+screen_clear()
 
 user = Beginner(user_name, str_stat, dex_stat, int_stat, luk_stat)
 user.get_job()
@@ -355,7 +355,7 @@ time.sleep(2)
 # 물방도 넣고, 최소 데미지는 최소1 입도록 시간 안될듯...
 exit_while = False
 while True:
-    Screen_Clear()
+    screen_clear()
 
     # 유저 상태 보여주기
     user.status()
@@ -367,11 +367,11 @@ while True:
         "sounds/Maplestory-004.wav")  # 입력 후 출력 소리
     sound_effect.play()
 
-    Screen_Clear()
+    screen_clear()
     if user_input == "1":
 
         # 몬스터 중에서 랜덤으로 고르기
-        monster = Select_And_Create_Monster()
+        monster = select_and_create_monster()
         print(f"{Colors.RESET}{Colors.RED}{monster.name}{Colors.RESET}을(를) 만났습니다.")
         # 몬스터 상태 보여주기
         monster.status()
@@ -392,7 +392,7 @@ while True:
                 "sounds/Maplestory-004.wav")  # 입력 후 출력 소리
             sound_effect.play()
 
-            Screen_Clear()
+            screen_clear()
 
             if user_input == "1":
                 user.physical_attack(monster)
@@ -401,7 +401,7 @@ while True:
                 sound_effect.play()
                 print("\n")
             elif user_input == "2":
-                Screen_Clear()
+                screen_clear()
 
                 sound_effect = pygame.mixer.Sound(
                     "sounds/Maplestory-008.wav")  # 입력 후 출력 소리
@@ -423,11 +423,11 @@ while True:
                     "sounds/Maplestory-013.wav")  # 입력 후 출력 소리
                 sound_effect.play()
                 for i in range(4):
-                    Screen_Clear()
+                    screen_clear()
                     print("승리하였습니다!!! 축하드립니다!!!")
                     time.sleep(0.2)
 
-                    Screen_Clear()
+                    screen_clear()
                     print(f"{Colors.GREEN}승리하였습니다!!! 축하드립니다!!!{Colors.RESET}")
                     time.sleep(0.2)
                 break
