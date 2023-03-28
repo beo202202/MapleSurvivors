@@ -18,41 +18,47 @@ def screen_clear():
 monsters = ["달팽이", "파란 달팽이", "빨간 달팽이", "스포아",
             "주황버섯", "시니컬한 주황버섯", "초록버섯", "파란버섯", "우는 파란버섯", "뿔버섯", "돼지", "리본돼지", "파란 리본돼지", "머쉬맘"]
 
-# 몬스터이름, 체력, 일공, 마공, 일방, 마방
-# 몬스터이름, 체력, 일공, 일방, 마방
+# 몬스터이름, 레벨, 체력, 마나, 일공, 마공, 일방, 마방, 경험치, 메소
+
+# 일방 마방이 1보다 낮은 경우 데미지*(1-그값)로 바꿔야한다.
 
 
 def select_and_create_monster():
     select_monster = random.choice(monsters)
 
     if select_monster == "달팽이":
-        monster = Monster(select_monster, 15, 2, 0)
+        monster = Monster(select_monster, 1, 0, 15, 2, 1, 0, 0, 3, 5)
     elif select_monster == "파란 달팽이":
-        monster = Monster(select_monster, 20, 3, 0)
+        monster = Monster(select_monster, 2, 0, 20, 3, 2, 0, 0, 4, 10)
     elif select_monster == "빨간 달팽이":
-        monster = Monster(select_monster, 50, 15, 3)
+        monster = Monster(select_monster, 5, 50, 0, 15, 12, 3, 10, 8, 15)
     elif select_monster == "스포아":
-        monster = Monster(select_monster, 20, 6, 10)
+        monster = Monster(select_monster, 3, 20, 0, 6, 4, 0.1, 0.1, 4, 10)
     elif select_monster == "주황버섯":
-        monster = Monster(select_monster, 125, 41, 0)
+        monster = Monster(select_monster, 10, 125, 10, 41, 35, 0, 10, 17, 20)
     elif select_monster == "시니컬한 주황버섯":
-        monster = Monster(select_monster, 150, 43, 0)
+        monster = Monster(select_monster, 11, 150, 20, 43, 38, 0, 10, 19, 25)
     elif select_monster == "초록버섯":
-        monster = Monster(select_monster, 125, 47, 12)
+        monster = Monster(select_monster, 10, 125, 10,
+                          47, 35, 0.05, 0.05, 17, 20)
     elif select_monster == "파란버섯":
-        monster = Monster(select_monster, 225, 58, 10)
+        monster = Monster(select_monster, 14, 225, 20,
+                          58, 55, 0.1, 0.1, 24, 45)
     elif select_monster == "우는 파란버섯":
-        monster = Monster(select_monster, 250, 63, 10)
+        monster = Monster(select_monster, 15, 250, 20,
+                          63, 57, 0.1, 0.1, 26, 50)
     elif select_monster == "뿔버섯":
-        monster = Monster(select_monster, 175, 51, 30)
+        monster = Monster(select_monster, 12, 175, 20,
+                          51, 45, 0.1, 0.1, 21, 30)
     elif select_monster == "돼지":
-        monster = Monster(select_monster, 80, 25, 10)
+        monster = Monster(select_monster, 7, 80, 10, 24, 19, 5, 20, 12, 18)
     elif select_monster == "리본돼지":
-        monster = Monster(select_monster, 125, 38, 10)
+        monster = Monster(select_monster, 10, 125, 10, 38, 35, 10, 30, 17, 20)
     elif select_monster == "파란 리본돼지":
-        monster = Monster(select_monster, 200, 54, 10)
+        monster = Monster(select_monster, 13, 200, 20, 54, 49, 10, 30, 23, 47)
     elif select_monster == "머쉬맘":
-        monster = Monster(select_monster, 17500, 123, 25)
+        monster = Monster(select_monster, 18, 17500,
+                          123, 109, 0.25, 0.25, 1650)
     else:
         print("몬스터 생성 오류 입니다.")
         # 달팽이 레벨1, hp15, mp0, 물공2, 마공1, 명중률10,회피율0,물방0,마방0
