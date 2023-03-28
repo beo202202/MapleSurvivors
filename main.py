@@ -18,6 +18,9 @@ def screen_clear():
 monsters = ["달팽이", "파란 달팽이", "빨간 달팽이", "스포아",
             "주황버섯", "시니컬한 주황버섯", "초록버섯", "파란버섯", "우는 파란버섯", "뿔버섯", "돼지", "리본돼지", "파란 리본돼지", "머쉬맘"]
 
+# 몬스터이름, 체력, 일공, 마공, 일방, 마방
+# 몬스터이름, 체력, 일공, 일방, 마방
+
 
 def select_and_create_monster():
     select_monster = random.choice(monsters)
@@ -183,7 +186,7 @@ screen_clear()
 pygame.mixer.init()
 
 sound_effect = pygame.mixer.Sound("sounds/NexonLoad.mp3")  # 넥슨 로딩
-sound_effect.set_volume(0.3)
+# sound_effect.set_volume(0.5)
 sound_effect.play()
 
 f = open("img/nexon_logo.txt", 'r', encoding='UTF8')
@@ -250,7 +253,7 @@ for i in range(6):
 
 
 pygame.mixer.music.load("sounds/Old_Main_Title.mp3")
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1)
 
 screen_clear()
