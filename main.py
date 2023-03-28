@@ -27,11 +27,11 @@ def select_and_create_monster():
     select_monster = random.choice(monsters)
 
     if select_monster == "달팽이":
-        monster = Monster(select_monster, 1, 0, 15, 2, 1, 0, 0, 3, 5)
+        monster = Monster(select_monster, 1, 15, 0, 2, 1, 0.1, 0.1, 3, 5)
     elif select_monster == "파란 달팽이":
-        monster = Monster(select_monster, 2, 0, 20, 3, 2, 0, 0, 4, 10)
+        monster = Monster(select_monster, 2, 20, 0, 3, 2, 0.1, 0.1, 4, 10)
     elif select_monster == "빨간 달팽이":
-        monster = Monster(select_monster, 5, 50, 0, 15, 12, 3, 10, 8, 15)
+        monster = Monster(select_monster, 5, 50, 0, 15, 12, 0.1, 0.1, 8, 15)
     elif select_monster == "스포아":
         monster = Monster(select_monster, 3, 20, 0, 6, 4, 0.1, 0.1, 4, 10)
     elif select_monster == "주황버섯":
@@ -57,8 +57,8 @@ def select_and_create_monster():
     elif select_monster == "파란 리본돼지":
         monster = Monster(select_monster, 13, 200, 20, 54, 49, 10, 30, 23, 47)
     elif select_monster == "머쉬맘":
-        monster = Monster(select_monster, 18, 17500,
-                          123, 109, 0.25, 0.25, 1650)
+        monster = Monster(select_monster, 18, 17500, 2000,
+                          123, 109, 0.25, 0.25, 1650, 1000)
     else:
         print("몬스터 생성 오류 입니다.")
         # snail = Monster("달팽이", 15, 2, 0)
@@ -332,20 +332,31 @@ user.get_job()
 print(f"{Colors.RESET}전직하실 {Colors.GREEN}직업{Colors.RESET}을 고르세요.")
 user_input = str(
     input(f"검사(\"1\")    아처(\"2\")   매지션(\"3\")   로그(\"4\")     그대로(\"any key\")\n>>입력(숫자): {Colors.GREEN}"))
-sound_effect = pygame.mixer.Sound("sounds/Maplestory-011_2.wav")  # 입력 후 출력 소리
-sound_effect.play()
 
 if (user_input == "1"):
     user = Knight(user_name, str_stat, dex_stat, int_stat, luk_stat)
+    sound_effect = pygame.mixer.Sound(
+        "sounds/Maplestory-011_2.wav")  # 입력 후 출력 소리
+    sound_effect.play()
     user.get_job()
+
 elif (user_input == "2"):
     user = Archer(user_name, str_stat, dex_stat, int_stat, luk_stat)
+    sound_effect = pygame.mixer.Sound(
+        "sounds/Maplestory-011_2.wav")  # 입력 후 출력 소리
+    sound_effect.play()
     user.get_job()
 elif (user_input == "3"):
     user = Magician(user_name, str_stat, dex_stat, int_stat, luk_stat)
+    sound_effect = pygame.mixer.Sound(
+        "sounds/Maplestory-011_2.wav")  # 입력 후 출력 소리
+    sound_effect.play()
     user.get_job()
 elif (user_input == "4"):
     user = Rogue(user_name, str_stat, dex_stat, int_stat, luk_stat)
+    sound_effect = pygame.mixer.Sound(
+        "sounds/Maplestory-011_2.wav")  # 입력 후 출력 소리
+    sound_effect.play()
     user.get_job()
 else:
     user = Beginner(user_name, str_stat, dex_stat, int_stat, luk_stat)
@@ -444,6 +455,7 @@ while True:
 
                 # 상태체크 사망 시 게임을 종료하기...
                 if user.hp <= 0:
+                    time.sleep(1)
                     user.status()
 
                     pygame.mixer.music.stop()
