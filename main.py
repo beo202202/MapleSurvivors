@@ -34,66 +34,6 @@ def Screen_Clear():
         os.system('clear')  # mac, 리눅스, 유닉스
 
 
-Screen_Clear()
-
-f = open("img/donxon2.txt", 'r', encoding='UTF8')
-lines = f.readlines()
-for line in lines:
-    line = line.strip()     # 줄 끝의 줄 바꿈 문자를 제거한다.
-    print(line)
-f.close()
-
-time.sleep(1)
-
-Screen_Clear()
-
-
-a = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-my_list_a = list(a)
-b = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-my_list_b = list(b)
-c = "░░░░█▄░▄█░░░█░░░█▀▀▄░█░░░░█▀▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-my_list_c = list(c)
-d = "░░░░█░▀░█░░█▄█░░█▀▀░░█░░░░█▀▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-my_list_d = list(d)
-e = "░░░░▀░░░▀░▀░░░▀░▀░░░░▀▀▀▀░▀▀▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-my_list_e = list(e)
-f = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▄▀▀▀▀░█░░░█░█▀▀▀▄░█░░░█░▀▀█▀▀░█░░░█░▄▀▀▀▄░█▀▀▀▄░▄▀▀▀▀░░░░"
-my_list_f = list(f)
-g = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▀▀▀▄░█░░░█░█▀▀█░░░█░█░░░░█░░░░█░█░░█░░░█░█▀▀█░░░▀▀▀▄░░░░"
-my_list_g = list(g)
-h = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▀▀▀▀░░░▀▀▀░░▀░░░▀░░░▀░░░▀▀▀▀▀░░░▀░░░░▀▀▀░░▀░░░▀░▀▀▀▀░░░░░"
-my_list_h = list(h)
-i = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
-my_list_i = list(i)
-j = "༼๑◕◞◟◕๑༽⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞"
-my_list_j = list(j)
-
-str_a = str_b = str_c = str_d = str_e = str_f = str_g = str_h = str_i = str_j = ""
-for i in range(len(my_list_a)):
-    Screen_Clear()
-    str_a += my_list_a[i]
-    str_b += my_list_b[i]
-    str_c += my_list_c[i]
-    str_d += my_list_d[i]
-    str_e += my_list_e[i]
-    str_f += my_list_f[i]
-    str_g += my_list_g[i]
-    str_h += my_list_h[i]
-    str_i += my_list_i[i]
-    str_j += my_list_j[i]
-    print(f"{str_a}\n{str_b}\n{str_c}\n{str_d}\n{str_e}\n{str_f}\n{str_g}\n{str_h}\n{str_i}\n{str_j}")
-    time.sleep(0.01)
-
-
-time.sleep(2)
-
-for i in range(6):
-    Screen_Clear()
-    print("몬스터 인스턴스를 생성 중" + "." * (i % 3))
-    time.sleep(0.3)
-
-
 monsters = ["달팽이", "파란 달팽이", "빨간 달팽이", "스포아",
             "주황버섯", "시니컬한 주황버섯", "초록버섯", "파란버섯", "우는 파란버섯", "뿔버섯", "돼지", "리본돼지", "파란 리본돼지", "머쉬맘"]
 
@@ -160,29 +100,124 @@ def Select_And_Create_Monster():
 # 몬스터 이미지
 
 
-def screen_monster():
-    # if monster.name == "뿔버섯":
-    # file_name = "horny_mushroom"
-    file_name = "blue_snail"
+def screen_monster(name):
+    if name == "달팽이":
+        file_name = "snail"
+    elif name == "파란 달팽이":
+        file_name = "blue_snail"
+    elif name == "빨간 달팽이":
+        file_name = "red_snail"
+    elif name == "스포아":
+        file_name = "shroom"
+    elif name == "주황버섯":
+        file_name = "orange_mushroom"
+    elif name == "시니컬한 주황버섯":
+        file_name = "cynical_orange_mushroom"
+    elif name == "초록버섯":
+        file_name = "green_mushroom"
+    elif name == "파란버섯":
+        file_name = "blue_mushroom"
+    elif name == "우는 파란버섯":
+        file_name = "crying_blue_mushroom"
+    elif name == "뿔버섯":
+        file_name = "horny_mushroom"
+    elif name == "돼지":
+        file_name = "pig"
+    elif name == "리본돼지":
+        file_name = "ribon_pig"
+    elif name == "파란 리본돼지":
+        file_name = "blue_ribon_pig"
+    elif name == "머쉬맘":
+        file_name = "mushmom"
+    else:
+        print("몬스터 생성 오류 입니다.")
 
     f = open("img/" + file_name + ".txt", 'r', encoding='UTF8')
     lines = f.readlines()
     for line in lines:
         line = line.strip()     # 줄 끝의 줄 바꿈 문자를 제거한다.
         print(line)
+
     f.close()
+
+    print("\n")
+
+
+# -------------------       알고리즘 시작      --------------------------
+
+Screen_Clear()
+
+f = open("img/nexon_logo.txt", 'r', encoding='UTF8')
+lines = f.readlines()
+for line in lines:
+    line = line.strip()     # 줄 끝의 줄 바꿈 문자를 제거한다.
+    print(line)
+    time.sleep(0.05)
+f.close()
+
+time.sleep(1)
+
+
+Screen_Clear()
+
+
+a = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+my_list_a = list(a)
+b = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+my_list_b = list(b)
+c = "░░░░█▄░▄█░░░█░░░█▀▀▄░█░░░░█▀▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+my_list_c = list(c)
+d = "░░░░█░▀░█░░█▄█░░█▀▀░░█░░░░█▀▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+my_list_d = list(d)
+e = "░░░░▀░░░▀░▀░░░▀░▀░░░░▀▀▀▀░▀▀▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+my_list_e = list(e)
+f = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▄▀▀▀▀░█░░░█░█▀▀▀▄░█░░░█░▀▀█▀▀░█░░░█░▄▀▀▀▄░█▀▀▀▄░▄▀▀▀▀░░░░"
+my_list_f = list(f)
+g = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▀▀▀▄░█░░░█░█▀▀█░░░█░█░░░░█░░░░█░█░░█░░░█░█▀▀█░░░▀▀▀▄░░░░"
+my_list_g = list(g)
+h = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▀▀▀▀░░░▀▀▀░░▀░░░▀░░░▀░░░▀▀▀▀▀░░░▀░░░░▀▀▀░░▀░░░▀░▀▀▀▀░░░░░"
+my_list_h = list(h)
+i = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+my_list_i = list(i)
+j = "༼๑◕◞◟◕๑༽⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞⎛⎝(•‿•)⎠⎞"
+my_list_j = list(j)
+
+str_a = str_b = str_c = str_d = str_e = str_f = str_g = str_h = str_i = str_j = ""
+for i in range(len(my_list_a)):
+    Screen_Clear()
+    str_a += my_list_a[i]
+    str_b += my_list_b[i]
+    str_c += my_list_c[i]
+    str_d += my_list_d[i]
+    str_e += my_list_e[i]
+    str_f += my_list_f[i]
+    str_g += my_list_g[i]
+    str_h += my_list_h[i]
+    str_i += my_list_i[i]
+    str_j += my_list_j[i]
+    print(f"{str_a}\n{str_b}\n{str_c}\n{str_d}\n{str_e}\n{str_f}\n{str_g}\n{str_h}\n{str_i}\n{str_j}")
+    time.sleep(0.001)
+
+
+time.sleep(2)
+
+for i in range(6):
+    Screen_Clear()
+    print(f"{Colors.RED}몬스터 인스턴스{Colors.RESET}를 생성할 준비 중" + "." * (i % 3))
+    time.sleep(0.3)
 
 
 Screen_Clear()
 
 # 캐릭터 이름 설정하는...
-user_name = str(input("당신의 캐릭터 이름을 입력해주세요: "))
+user_name = str(
+    input(f"당신의 캐릭터 {Colors.GREEN}이름{Colors.RESET}을 입력해주세요.\n>>입력: {Colors.GREEN}"))
 
 for i in range(6):
     Screen_Clear()
 
-    print(f"{user_name} 모험가님 환영합니다.")
-    print("캐릭터 생성 중" + "." * (i % 3))
+    print(f"{Colors.GREEN}{user_name} 모험가{Colors.RESET}님 환영합니다.")
+    print(f"{Colors.GREEN}{user_name}{Colors.RESET} 캐릭터 생성 중" + "." * (i % 3))
     time.sleep(0.3)
 
 while True:
@@ -218,11 +253,11 @@ while True:
     Screen_Clear()
 
     print(
-        f"주사위\nSTR: {str_stat}\nDEX: {dex_stat}\nINT: {int_stat}\nLUK: {luk_stat}")
+        f"주사위\n{Colors.ORANGE}STR: {str_stat}\nDEX: {dex_stat}\nINT: {int_stat}\nLUK: {luk_stat}{Colors.RESET}")
 
     # GUI 시 묻지 않고 주사위 이미지, 확인, 취소로
     user_input = str(
-        input("이대로 생성하시겠습니까?\n(확인(\"1\"), 아니오(\"any key\")\n>>입력: "))
+        input(f"{Colors.GREEN}이대로 생성하시겠습니까?{Colors.RESET}\n(확인(\"1\"), 아니오(\"any key\")\n>>입력: {Colors.GREEN}"))
     if user_input == "1":
         break
 
@@ -231,53 +266,67 @@ Screen_Clear()
 user = Beginner(user_name, str_stat, dex_stat, int_stat, luk_stat)
 user.get_job()
 
-print("전직하실 직업을 고르세요.")
-user_input = int(
-    input("1. 검사    2. 아처   3. 매지션   4. 로그     5. 그대로(any key)\n>>입력(숫자): "))
-if (user_input == 1):
+print(f"{Colors.RESET}전직하실 {Colors.GREEN}직업{Colors.RESET}을 고르세요.")
+user_input = str(
+    input(f"검사(\"1\")    아처(\"2\")   매지션(\"3\")   로그(\"4\")     그대로(\"any key\")\n>>입력(숫자): {Colors.GREEN}"))
+if (user_input == "1"):
     user = Knight(user_name, str_stat, dex_stat, int_stat, luk_stat)
     user.get_job()
-elif (user_input == 2):
+elif (user_input == "2"):
     user = Archer(user_name, str_stat, dex_stat, int_stat, luk_stat)
     user.get_job()
-elif (user_input == 3):
+elif (user_input == "3"):
     user = Magician(user_name, str_stat, dex_stat, int_stat, luk_stat)
     user.get_job()
-elif (user_input == 4):
+elif (user_input == "4"):
     user = Rogue(user_name, str_stat, dex_stat, int_stat, luk_stat)
     user.get_job()
 else:
     user = Beginner(user_name, str_stat, dex_stat, int_stat, luk_stat)
     user.get_job()
 
-time.sleep(1)
-Screen_Clear()
+time.sleep(2)
 
-# 물방도 넣고, 최소 데미지는 최소1 입도록
+# 물방도 넣고, 최소 데미지는 최소1 입도록 시간 안될듯...
 exit_while = False
 while True:
+    Screen_Clear()
+
+    # 유저 상태 보여주기
+    user.status()
+
     user_input = str(
-        input('\033[31m'+"전투를 하시겠습니까?\n" + '\033[0m' + "예(1), 종료(\"any key\")\n>>입력: "))
+        input(f"{Colors.RED}전투를 하시겠습니까?\n예{Colors.RESET}(\"1\"), 종료(\"any key\")\n>>입력: {Colors.GREEN}"))
+
+    Screen_Clear()
     if user_input == "1":
-        Screen_Clear()
-        # 유저 상태 보여주기
-        user.status()
+
         # 몬스터 중에서 랜덤으로 고르기
         monster = Select_And_Create_Monster()
-        print(f"{monster.name}을(를) 만났습니다.")
-        screen_monster()
+        print(f"{Colors.RESET}{Colors.RED}{monster.name}{Colors.RESET}을(를) 만났습니다.")
         # 몬스터 상태 보여주기
         monster.status()
+        # 몬스터 이미지
+        screen_monster(monster.name)
 
         # 전투 하기
         while True:
+            # 유저 상태 보여주기
+            user.status()
+
             user_input = str(
-                input("(일반공격(1), 스킬공격(2), 도망가기(3), 게임종료(\"any key\")\n>>입력: "))
+                input(f"{Colors.GREEN}일반공격{Colors.RESET}(\"1\"), {Colors.BLUE}스킬공격{Colors.RESET}(\"2\"), {Colors.RED}도망가기{Colors.RESET}(\"3\"), 게임종료(\"any key\")\n>>입력: "))
+
             Screen_Clear()
+
             if user_input == "1":
                 user.physical_attack(monster)
+                print("\n")
             elif user_input == "2":
+                Screen_Clear()
+
                 user.skill_attack(monster)
+                print("\n")
             elif user_input == "3":
                 print("도망가기")
                 break
@@ -286,22 +335,33 @@ while True:
                 break
 
             # 몬스터가 죽으면 pass
-            if monster.hp <= 0:
-                print("승리하였습니다!!! 축하드립니다!!!")
+            if monster.hp == 0:
+                time.sleep(1)
+                for i in range(4):
+                    Screen_Clear()
+                    print("승리하였습니다!!! 축하드립니다!!!")
+                    time.sleep(0.2)
+
+                    Screen_Clear()
+                    print(f"{Colors.GREEN}승리하였습니다!!! 축하드립니다!!!{Colors.RESET}")
+                    time.sleep(0.2)
                 break
             else:
                 # 몬스터 상태 보여주기
                 monster.status()
 
+                # 몬스터 이미지
+                screen_monster(monster.name)
+
                 # 몬스터가 공격
                 monster.physical_attack(user)
 
-                # 유저 상태 보여주기
-                user.status()
-
                 # 상태체크 사망 시 게임을 종료하기...
                 if user.hp <= 0:
-                    print(f"{user_name}이 사망하였습니다. 게임을 종료합니다. (패배조건)")
+                    user.status()
+
+                    print(
+                        f"{Colors.RESET}{Colors.GREEN}{user_name}{Colors.RESET}{Colors.RED}이(가) 사망하였습니다. 게임을 종료합니다. (패배조건){Colors.RESET}")
                     exit_while = True
                     break
 
@@ -309,7 +369,7 @@ while True:
         exit_while = True
 
     if exit_while:      # user가 게임종료를 선택함
-        print("user가 게임을 종료합니다.")
+        print(f"{Colors.RESET}{Colors.GREEN}{user_name}{Colors.RESET}(이)가 게임을 종료합니다.")
         break
 
 # 데코레이터를 쓸 일이 있나?
