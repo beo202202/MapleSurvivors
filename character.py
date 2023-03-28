@@ -27,8 +27,7 @@ class Character:                # 첫 캐릭터
         for i in range(attack_count):
             damage = random.randint(
                 min_stat_attack, max_stat_attack) - other.physical_defense
-            if damage < 1:
-                damage = 1
+            max(damage, 1)
             other.hp -= damage
 
             print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
@@ -95,8 +94,7 @@ class Knight(Character):        # 검사, 추후 레벨10부터 가능하게?
         for i in range(attack_count):
             damage = random.randint(
                 min_stat_attack, max_stat_attack) - other.physical_defense
-            if damage < 1:
-                damage = 1
+            max(damage, 1)
             other.hp -= damage
 
             print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
@@ -118,8 +116,7 @@ class Knight(Character):        # 검사, 추후 레벨10부터 가능하게?
             for i in range(attack_count):
                 damage = random.randint(
                     min_stat_attack, max_stat_attack) - other.physical_defense
-                if damage < 1:
-                    damage = 1
+                max(damage, 1)
                 other.hp -= damage
 
                 print(f"{Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
@@ -155,8 +152,7 @@ class Archer(Character):        # 아처
         for i in range(attack_count):
             damage = random.randint(
                 min_stat_attack, max_stat_attack) - other.physical_defense
-            if damage < 1:
-                damage = 1
+            max(damage, 1)
             other.hp -= damage
 
             print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
@@ -178,8 +174,7 @@ class Archer(Character):        # 아처
             for i in range(attack_count):
                 damage = random.randint(
                     min_stat_attack, max_stat_attack) - other.physical_defense
-                if damage < 1:
-                    damage = 1
+                max(damage, 1)
                 other.hp -= damage
 
                 print(f"{Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
@@ -214,8 +209,7 @@ class Magician(Character):      # 매지션
         for i in range(attack_count):
             damage = random.randint(
                 min_stat_attack, max_stat_attack) - other.physical_defense
-            if damage < 1:
-                damage = 1
+            max(damage, 1)
             other.hp -= damage
 
             print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
@@ -236,9 +230,8 @@ class Magician(Character):      # 매지션
             print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.BLUE}마나{Colors.RESET}({Colors.BLUE}{self.skill_mp}{Colors.RESET})를 소모하여")
             for i in range(attack_count):
                 damage = random.randint(
-                    min_stat_attack, max_stat_attack) - other.physical_defense
-                if damage < 1:
-                    damage = 1
+                    min_stat_attack, max_stat_attack) - other.magic_defense
+                max(damage, 1)
                 other.hp -= damage
 
                 print(f"{Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
@@ -273,8 +266,7 @@ class Rogue(Character):         # 로그
         for i in range(attack_count):
             damage = random.randint(
                 min_stat_attack, max_stat_attack) - other.physical_defense
-            if damage < 1:
-                damage = 1
+            max(damage, 1)
             other.hp -= damage
 
             print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
@@ -296,8 +288,7 @@ class Rogue(Character):         # 로그
             for i in range(attack_count):
                 damage = random.randint(
                     min_stat_attack, max_stat_attack) - other.physical_defense
-                if damage < 1:
-                    damage = 1
+                max(damage, 1)
                 other.hp -= damage
 
                 print(f"{Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
