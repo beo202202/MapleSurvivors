@@ -267,7 +267,7 @@ user.get_job()
 print(f"{Colors.RESET}전직하실 {Colors.GREEN}직업{Colors.RESET}을 고르세요.")
 user_input = str(
     input(f"검사(\"1\")    아처(\"2\")   매지션(\"3\")   로그(\"4\")     그대로(\"any key\")\n>>입력(숫자): {Colors.GREEN}"))
-sound_effect = pygame.mixer.Sound("sounds/Maplestory-011.wav")  # 입력 후 출력 소리
+sound_effect = pygame.mixer.Sound("sounds/Maplestory-011_2.wav")  # 입력 후 출력 소리
 sound_effect.play()
 
 if (user_input == "1"):
@@ -353,6 +353,9 @@ while True:
             # 몬스터가 죽으면 pass
             if monster.hp == 0:
                 time.sleep(1)
+                sound_effect = pygame.mixer.Sound(
+                    "sounds/Maplestory-013.wav")  # 입력 후 출력 소리
+                sound_effect.play()
                 for i in range(4):
                     Screen_Clear()
                     print("승리하였습니다!!! 축하드립니다!!!")
