@@ -81,10 +81,28 @@ def Select_And_Create_Monster():
 # 몬스터 이미지
 
 
+# 딕셔너리로...
+# mon = monster_dict[input("직업을 선택해주세요.")]
+# if mon_select in monster_dict.keys():
+#     job = player_dit[job_select]
+#     break
+# monster_dict = {
+#     "1": Monster(
+#         name="달팽이"
+#         lv=1
+#         hp=15
+#         mp=0
+#         power=2
+#         magic_power=0
+#         pysical_defence=10
+#         magic_defence=10
+#         file_name="snail"
+#         new_music="sounds/Maple_Leaf.mp3"
+#     ),
+# }
+
 # current_music = ""
 played_music = []
-
-# 딕셔너리로...
 
 
 def screen_monster(name):
