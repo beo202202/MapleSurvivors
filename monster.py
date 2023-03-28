@@ -31,14 +31,14 @@ class Monster:  # 몬스터, 추후 마법 공격도?
     def status(self):
         hp_left = round(self.hp/self.max_hp * 50)
         if 0.5 <= self.hp/self.max_hp <= 1:
-            print(f"{Colors.RED}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.GREEN}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET}")
+            print(f"{Colors.RED}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.GREEN}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET} 물리방어력: {self.physical_defense_power}")
             print(f"{Colors.GREEN}░{Colors.RESET}" *
                   hp_left + "░" * (50-hp_left))
         elif 0.2 <= self.hp/self.max_hp < 0.5:
-            print(f"{Colors.RED}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.ORANGE}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET}")
+            print(f"{Colors.RED}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.ORANGE}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET} 물리방어력: {self.physical_defense_power}")
             print(f"{Colors.ORANGE}░{Colors.RESET}" *
                   hp_left + "░" * (50-hp_left))
         else:
-            print(f"{Colors.RED}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.RED}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET}")
+            print(f"{Colors.RED}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.RED}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET} 물리방어력: {self.physical_defense_power}")
             print(f"{Colors.RED}░{Colors.RESET}" *
                   hp_left + "░" * (50-hp_left))

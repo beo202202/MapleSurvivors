@@ -154,73 +154,17 @@ def screen_monster(name):
     print("\n")
 
 
-# def Monster_Sound(name):
-#     if name == "달팽이":
-
-#         pygame.mixer.music.load("sounds/Maple_Leaf.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "파란 달팽이":
-#         file_name = "blue_snail"
-#         pygame.mixer.music.load("sounds/Maple_Leaf.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "빨간 달팽이":
-#         file_name = "red_snail"
-#         pygame.mixer.music.load("sounds/Above_the_Treetops.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "스포아":
-#         file_name = "shroom"
-#         pygame.mixer.music.load("sounds/Cava_Bien.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "주황버섯":
-#         file_name = "orange_mushroom"
-#         pygame.mixer.music.load("sounds/Cava_Bien.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "시니컬한 주황버섯":
-#         file_name = "cynical_orange_mushroom"
-#         pygame.mixer.music.load("sounds/Cava_Bien.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "초록버섯":
-#         file_name = "green_mushroom"
-#         pygame.mixer.music.load("sounds/Ancient_Move.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "파란버섯":
-#         file_name = "blue_mushroom"
-#         pygame.mixer.music.load("sounds/Rest_n_Peace.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "우는 파란버섯":
-#         file_name = "crying_blue_mushroom"
-#         pygame.mixer.music.load("sounds/Rest_n_Peace.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "뿔버섯":
-#         file_name = "horny_mushroom"
-#         pygame.mixer.music.load("sounds/Ancient_Move.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "돼지":
-#         file_name = "pig"
-#         pygame.mixer.music.load("sounds/Blue_Sky.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "리본돼지":
-#         file_name = "ribon_pig"
-#         pygame.mixer.music.load("sounds/Blue_Sky.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "파란 리본돼지":
-#         file_name = "blue_ribon_pig"
-#         pygame.mixer.music.load("sounds/Blue_Sky.mp3")
-#         pygame.mixer.music.play(-1)
-#     elif name == "머쉬맘":
-#         file_name = "mushmom"
-#     else:
-#         print("몬스터 생성 오류 입니다.")
 # -------------------       알고리즘 시작      --------------------------
 
 
 Screen_Clear()
 
-pygame.init()
+# pygame.init()
+pygame.mixer.init()
 
 sound_effect = pygame.mixer.Sound("sounds/NexonLoad.mp3")  # 넥슨 로딩
+sound_effect.set_volume(0.3)
 sound_effect.play()
-
 
 f = open("img/nexon_logo.txt", 'r', encoding='UTF8')
 lines = f.readlines()
@@ -276,7 +220,18 @@ for i in range(len(my_list_a)):
 
 time.sleep(2)
 
+Screen_Clear()
+
+f = open("img/login.txt", 'r', encoding='UTF8')
+lines = f.readlines()
+for line in lines:
+    line = line.strip()     # 줄 끝의 줄 바꿈 문자를 제거한다.
+    print(line)
+    time.sleep(0.05)
+f.close()
+
 pygame.mixer.music.load("sounds/Old_Main_Title.mp3")
+pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1)
 
 for i in range(6):
@@ -286,6 +241,7 @@ for i in range(6):
 
 
 Screen_Clear()
+
 
 # 캐릭터 이름 설정하는...
 user_name = str(
@@ -469,15 +425,17 @@ while True:
                 if user.hp <= 0:
                     user.status()
 
+                    pygame.mixer.music.stop()
                     sound_effect = pygame.mixer.Sound(
                         "sounds\Tombston.mp3")  # 입력 후 출력 소리
+                    sound_effect.set_volume(1)
                     sound_effect.play()
 
                     print(
                         f"{Colors.RESET}{Colors.GREEN}{user_name}{Colors.RESET}{Colors.RED}이(가) 사망하였습니다. 게임을 종료합니다. (패배조건){Colors.RESET}")
                     exit_while = True
 
-                    time.sleep(1)
+                    time.sleep(2)
                     break
 
     else:
