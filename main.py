@@ -13,7 +13,10 @@
 # 6.- 매 전투시 플레이어와 몬스터의 상태 정보를 출력해야 합니다.
 # 7.- 모든 공격은 캐릭터의 파워 기준으로 랜덤성을 가지고있어야 합니다.
 #     ex) 파워가 10인경우 일반공격은 8~12사이의 랜덤한 값으로 공격
+
+
 # 8. 몬스터나 플레이어의 HP가 0이되면 전투를 종료하고 승리 또는 패배를 출력해야 합니다
+
 
 import random
 import os
@@ -21,6 +24,7 @@ import platform
 import time
 from character import *
 from monster import *
+from textcolor import *
 
 
 def Screen_Clear():
@@ -90,30 +94,41 @@ for i in range(6):
     time.sleep(0.3)
 
 
-monsters = ["달팽이", "파란달팽이", "빨간달팽이", "스포아", "주황버섯", "초록버섯", "파란버섯", "뿔버섯"]
+monsters = ["달팽이", "파란 달팽이", "빨간 달팽이", "스포아",
+            "주황버섯", "시니컬한 주황버섯", "초록버섯", "파란버섯", "우는 파란버섯", "뿔버섯", "돼지", "리본돼지", "파란 리본돼지", "머쉬맘"]
 
 
 def Select_And_Create_Monster():
     select_monster = random.choice(monsters)
 
     if select_monster == "달팽이":
-        monster = Monster("달팽이", 15, 2, 0)
-    elif select_monster == "파란달팽이":
-        monster = Monster("파란달팽이", 20, 3, 0)
-    elif select_monster == "빨간달팽이":
-        monster = Monster("빨간달팽이", 50, 15, 3)
+        monster = Monster(select_monster, 15, 2, 0)
+    elif select_monster == "파란 달팽이":
+        monster = Monster(select_monster, 20, 3, 0)
+    elif select_monster == "빨간 달팽이":
+        monster = Monster(select_monster, 50, 15, 3)
     elif select_monster == "스포아":
-        monster = Monster("스포아", 20, 6, 10)
+        monster = Monster(select_monster, 20, 6, 10)
     elif select_monster == "주황버섯":
-        monster = Monster("주황버섯", 125, 41, 0)
+        monster = Monster(select_monster, 125, 41, 0)
+    elif select_monster == "시니컬한 주황버섯":
+        monster = Monster(select_monster, 150, 43, 0)
     elif select_monster == "초록버섯":
-        monster = Monster("초록버섯", 125, 47, 12)
+        monster = Monster(select_monster, 125, 47, 12)
     elif select_monster == "파란버섯":
-        monster = Monster("파란버섯", 225, 58, 10)
+        monster = Monster(select_monster, 225, 58, 10)
+    elif select_monster == "우는 파란버섯":
+        monster = Monster(select_monster, 250, 63, 10)
     elif select_monster == "뿔버섯":
-        monster = Monster("뿔버섯", 175, 51, 30)
+        monster = Monster(select_monster, 175, 51, 30)
+    elif select_monster == "돼지":
+        monster = Monster(select_monster, 80, 25, 10)
+    elif select_monster == "리본돼지":
+        monster = Monster(select_monster, 125, 38, 10)
+    elif select_monster == "파란 리본돼지":
+        monster = Monster(select_monster, 200, 54, 10)
     elif select_monster == "머쉬맘":
-        monster = Monster("머쉬맘", 17500, 123, 25)
+        monster = Monster(select_monster, 17500, 123, 25)
     else:
         print("몬스터 생성 오류 입니다.")
         # 달팽이 레벨1, hp15, mp0, 물공2, 마공1, 명중률10,회피율0,물방0,마방0
@@ -123,14 +138,39 @@ def Select_And_Create_Monster():
         # red_snail = Monster("빨간달팽이", 50, 15, 3)
         # shroom = Monster("스포아", 20, 6, 10)
         # orange_mushroom = Monster("주황버섯", 125, 41, 0)
+
+        # cynical_monster("시니컬한 주황버섯", 150, 43, 0)
+
         # green_mushroom = Monster("초록버섯", 125, 47, 12)
         # blue_mushroom = Monster("파란버섯", 225, 58, 10)
+
+        # crying_blue_mushroom = Monster("우는 파란버섯", 250, 63, 10)
+
         # horny_mushroom = Monster("뿔버섯", 175, 51, 30)
+
+        # pig = Monster("돼지", 80, 25, 10)
+        # ribon_pig = Monster("리본돼지", 125, 38, 10)
+        # blueribon_pig = Monster("파란 리본돼지", 200, 54, 10)
+
         # mushmom = Monster("머쉬맘", 17500, 123, 25)
         # -----------------------------------------------------------
         # 스킬 달팽이
-
     return monster
+
+# 몬스터 이미지
+
+
+def screen_monster():
+    # if monster.name == "뿔버섯":
+    # file_name = "horny_mushroom"
+    file_name = "blue_snail"
+
+    f = open("img/" + file_name + ".txt", 'r', encoding='UTF8')
+    lines = f.readlines()
+    for line in lines:
+        line = line.strip()     # 줄 끝의 줄 바꿈 문자를 제거한다.
+        print(line)
+    f.close()
 
 
 Screen_Clear()
@@ -217,7 +257,7 @@ Screen_Clear()
 exit_while = False
 while True:
     user_input = str(
-        input("전투를 하시겠습니까?\n(예(1), 종료(\"any key\")\n>>입력: "))
+        input('\033[31m'+"전투를 하시겠습니까?\n" + '\033[0m' + "예(1), 종료(\"any key\")\n>>입력: "))
     if user_input == "1":
         Screen_Clear()
         # 유저 상태 보여주기
@@ -225,6 +265,7 @@ while True:
         # 몬스터 중에서 랜덤으로 고르기
         monster = Select_And_Create_Monster()
         print(f"{monster.name}을(를) 만났습니다.")
+        screen_monster()
         # 몬스터 상태 보여주기
         monster.status()
 
@@ -246,6 +287,7 @@ while True:
 
             # 몬스터가 죽으면 pass
             if monster.hp <= 0:
+                print("승리하였습니다!!! 축하드립니다!!!")
                 break
             else:
                 # 몬스터 상태 보여주기
@@ -259,7 +301,7 @@ while True:
 
                 # 상태체크 사망 시 게임을 종료하기...
                 if user.hp <= 0:
-                    print(f"{user_name}이 사망하였습니다. 게임을 종료합니다.")
+                    print(f"{user_name}이 사망하였습니다. 게임을 종료합니다. (패배조건)")
                     exit_while = True
                     break
 
@@ -270,5 +312,4 @@ while True:
         print("user가 게임을 종료합니다.")
         break
 
-# 인스턴스를 초기화 할 수 있나?
 # 데코레이터를 쓸 일이 있나?

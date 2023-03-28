@@ -1,4 +1,5 @@
 import random
+from textcolor import *
 
 
 class Character:                # 첫 캐릭터
@@ -27,7 +28,7 @@ class Character:                # 첫 캐릭터
             damage = random.randint(min_stat_attack, max_stat_attack)
             other.hp -= damage
 
-            print(f"{self.name}의 공격! {other.name}에게 물리공격{damage}의 데미지를 입혔습니다.")
+            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
 
         if other.hp <= 0:
             other.hp = 0
@@ -37,8 +38,12 @@ class Character:                # 첫 캐릭터
         print("스킬을 사용할 수 없는 직업입니다.")
 
     def status(self):
-        print(
-            f"{self.name}의 상태: HP {self.hp}/{self.max_hp}, MP {self.mp}/{self.max_mp}")
+        if 0.5 <= self.hp/self.max_hp <= 1:
+            print(f"{Colors.RED}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.GREEN}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET}")
+        elif 0.2 <= self.hp/self.max_hp < 0.5:
+            print(f"{Colors.RED}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.ORANGE}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET}")
+        else:
+            print(f"{Colors.RED}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.RED}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET}")
 
 
 class Beginner(Character):      # 초보자
@@ -58,7 +63,7 @@ class Knight(Character):        # 검사, 추후 레벨10부터 가능하게?
 
     def get_job(self):
         print("검사로 전직하셨습니다.")
-        print(f"{self.skill_name}을 사용하실 수 있습니다.")
+        print(f"{self.skill_name}을(를) 사용하실 수 있습니다.")
 
     def physical_attack(self, other):
         max_stat_attack = round((self.str_stat * 4 + self.dex_stat) *
@@ -70,7 +75,7 @@ class Knight(Character):        # 검사, 추후 레벨10부터 가능하게?
             damage = random.randint(min_stat_attack, max_stat_attack)
             other.hp -= damage
 
-            print(f"{self.name}의 공격! {other.name}에게 물리공격 {damage}의 데미지를 입혔습니다.")
+            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
 
         if other.hp <= 0:
             other.hp = 0
@@ -89,8 +94,7 @@ class Knight(Character):        # 검사, 추후 레벨10부터 가능하게?
                 damage = random.randint(min_stat_attack, max_stat_attack)
                 other.hp -= damage
 
-                print(
-                    f"{self.name}의 공격! {other.name}에게 {self.skill_name}으로 {damage}의 데미지를 입혔습니다.")
+                print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
 
             if other.hp <= 0:
                 other.hp = 0
@@ -109,7 +113,7 @@ class Archer(Character):        # 아처
 
     def get_job(self):
         print("아처로 전직하셨습니다.")
-        print(f"{self.skill_name}을 사용하실 수 있습니다.")
+        print(f"{self.skill_name}을(를) 사용하실 수 있습니다.")
 
     def physical_attack(self, other):
         max_stat_attack = round((self.dex_stat * 4 + self.str_stat) *
@@ -122,7 +126,7 @@ class Archer(Character):        # 아처
             damage = random.randint(min_stat_attack, max_stat_attack)
             other.hp -= damage
 
-            print(f"{self.name}의 공격! {other.name}에게 물리공격 {damage}의 데미지를 입혔습니다.")
+            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
 
         if other.hp <= 0:
             other.hp = 0
@@ -141,8 +145,7 @@ class Archer(Character):        # 아처
                 damage = random.randint(min_stat_attack, max_stat_attack)
                 other.hp -= damage
 
-                print(
-                    f"{self.name}의 공격! {other.name}에게 {self.skill_name}으로 {damage}의 데미지를 입혔습니다.")
+                print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
 
             if other.hp <= 0:
                 other.hp = 0
@@ -161,7 +164,7 @@ class Magician(Character):      # 매지션
 
     def get_job(self):
         print("매지션으로 전직하셨습니다.")
-        print(f"{self.skill_name}을 사용하실 수 있습니다.")
+        print(f"{self.skill_name}을(를) 사용하실 수 있습니다.")
 
     def physical_attack(self, other):       # 매지션은 일반공격이 매우 약하지
         max_stat_attack = round((self.str_stat * 4 + self.dex_stat) *
@@ -173,7 +176,7 @@ class Magician(Character):      # 매지션
             damage = random.randint(min_stat_attack, max_stat_attack)
             other.hp -= damage
 
-            print(f"{self.name}의 공격! {other.name}에게 물리공격 {damage}의 데미지를 입혔습니다.")
+            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
 
         if other.hp <= 0:
             other.hp = 0
@@ -192,8 +195,7 @@ class Magician(Character):      # 매지션
                 damage = random.randint(min_stat_attack, max_stat_attack)
                 other.hp -= damage
 
-                print(
-                    f"{self.name}의 공격! {other.name}에게 {self.skill_name}으로 {damage}의 데미지를 입혔습니다.")
+                print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
 
             if other.hp <= 0:
                 other.hp = 0
@@ -212,7 +214,7 @@ class Rogue(Character):         # 로그
 
     def get_job(self):
         print("로그로 전직하셨습니다.")
-        print(f"{self.skill_name}을 사용하실 수 있습니다.")
+        print(f"{self.skill_name}을(를) 사용하실 수 있습니다.")
 
     def physical_attack(self, other):       # 매지션은 일반공격이 매우 약하지
         max_stat_attack = round((self.luk_stat * 4 + self.dex_stat) *
@@ -224,7 +226,7 @@ class Rogue(Character):         # 로그
             damage = random.randint(min_stat_attack, max_stat_attack)
             other.hp -= damage
 
-            print(f"{self.name}의 공격! {other.name}에게 물리공격 {damage}의 데미지를 입혔습니다.")
+            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
 
         if other.hp <= 0:
             other.hp = 0
@@ -243,8 +245,7 @@ class Rogue(Character):         # 로그
                 damage = random.randint(min_stat_attack, max_stat_attack)
                 other.hp -= damage
 
-                print(
-                    f"{self.name}의 공격! {other.name}에게 {self.skill_name}으로 {damage}의 데미지를 입혔습니다.")
+                print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
 
             if other.hp <= 0:
                 other.hp = 0
