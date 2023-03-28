@@ -222,17 +222,6 @@ time.sleep(2)
 
 Screen_Clear()
 
-f = open("img/login.txt", 'r', encoding='UTF8')
-lines = f.readlines()
-for line in lines:
-    line = line.strip()     # 줄 끝의 줄 바꿈 문자를 제거한다.
-    print(line)
-    time.sleep(0.05)
-f.close()
-
-pygame.mixer.music.load("sounds/Old_Main_Title.mp3")
-pygame.mixer.music.set_volume(0.3)
-pygame.mixer.music.play(-1)
 
 for i in range(6):
     Screen_Clear()
@@ -240,8 +229,19 @@ for i in range(6):
     time.sleep(0.3)
 
 
+pygame.mixer.music.load("sounds/Old_Main_Title.mp3")
+pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.play(-1)
+
 Screen_Clear()
 
+f = open("img/login.txt", 'r', encoding='UTF8')
+lines = f.readlines()
+for line in lines:
+    line = line.strip()     # 줄 끝의 줄 바꿈 문자를 제거한다.
+    print(line)
+    time.sleep(0.05)
+f.close()
 
 # 캐릭터 이름 설정하는...
 user_name = str(
