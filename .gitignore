@@ -1,5 +1,4 @@
 venv/
-sounds/
 __pycache__/
 .gitattributes
 dice.py
