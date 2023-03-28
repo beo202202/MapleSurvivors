@@ -84,6 +84,8 @@ def Select_And_Create_Monster():
 # current_music = ""
 played_music = []
 
+# 딕셔너리로...
+
 
 def screen_monster(name):
     # global current_music
