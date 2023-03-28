@@ -405,6 +405,9 @@ while True:
                 if user.hp <= 0:
                     user.status()
 
+                    sound_effect = pygame.mixer.Sound(
+                        "Tombston.mp3")  # 입력 후 출력 소리
+
                     print(
                         f"{Colors.RESET}{Colors.GREEN}{user_name}{Colors.RESET}{Colors.RED}이(가) 사망하였습니다. 게임을 종료합니다. (패배조건){Colors.RESET}")
                     exit_while = True
