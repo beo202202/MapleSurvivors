@@ -2,6 +2,7 @@ import random
 import os
 import platform
 import time
+import pygame
 from character import *
 from monster import *
 from textcolor import *
@@ -127,6 +128,12 @@ def screen_monster(name):
 
 Screen_Clear()
 
+pygame.init()
+
+sound_effect = pygame.mixer.Sound("sounds/NexonLoad.mp3")  # 넥슨 로딩
+sound_effect.play()
+
+
 f = open("img/nexon_logo.txt", 'r', encoding='UTF8')
 lines = f.readlines()
 for line in lines:
@@ -181,6 +188,9 @@ for i in range(len(my_list_a)):
 
 time.sleep(2)
 
+pygame.mixer.music.load("sounds/Old_Main_Title.mp3")
+pygame.mixer.music.play(-1)
+
 for i in range(6):
     Screen_Clear()
     print(f"{Colors.RED}몬스터 인스턴스{Colors.RESET}를 생성할 준비 중" + "." * (i % 3))
@@ -192,6 +202,9 @@ Screen_Clear()
 # 캐릭터 이름 설정하는...
 user_name = str(
     input(f"당신의 캐릭터 {Colors.GREEN}이름{Colors.RESET}을 입력해주세요.\n>>입력: {Colors.GREEN}"))
+
+sound_effect = pygame.mixer.Sound("sounds/Maplestory-004.wav")  # 입력 후 출력 소리
+sound_effect.play()
 
 for i in range(6):
     Screen_Clear()
@@ -238,6 +251,11 @@ while True:
     # GUI 시 묻지 않고 주사위 이미지, 확인, 취소로
     user_input = str(
         input(f"{Colors.GREEN}이대로 생성하시겠습니까?{Colors.RESET}\n(확인(\"1\"), 아니오(\"any key\")\n>>입력: {Colors.GREEN}"))
+
+    sound_effect = pygame.mixer.Sound(
+        "sounds/Maplestory-004.wav")  # 입력 후 출력 소리
+    sound_effect.play()
+
     if user_input == "1":
         break
 
@@ -249,6 +267,9 @@ user.get_job()
 print(f"{Colors.RESET}전직하실 {Colors.GREEN}직업{Colors.RESET}을 고르세요.")
 user_input = str(
     input(f"검사(\"1\")    아처(\"2\")   매지션(\"3\")   로그(\"4\")     그대로(\"any key\")\n>>입력(숫자): {Colors.GREEN}"))
+sound_effect = pygame.mixer.Sound("sounds/Maplestory-004.wav")  # 입력 후 출력 소리
+sound_effect.play()
+
 if (user_input == "1"):
     user = Knight(user_name, str_stat, dex_stat, int_stat, luk_stat)
     user.get_job()
@@ -278,6 +299,10 @@ while True:
     user_input = str(
         input(f"{Colors.RED}전투를 하시겠습니까?\n예{Colors.RESET}(\"1\"), 종료(\"any key\")\n>>입력: {Colors.GREEN}"))
 
+    sound_effect = pygame.mixer.Sound(
+        "sounds/Maplestory-004.wav")  # 입력 후 출력 소리
+    sound_effect.play()
+
     Screen_Clear()
     if user_input == "1":
 
@@ -296,6 +321,10 @@ while True:
 
             user_input = str(
                 input(f"{Colors.GREEN}일반공격{Colors.RESET}(\"1\"), {Colors.BLUE}스킬공격{Colors.RESET}(\"2\"), {Colors.RED}도망가기{Colors.RESET}(\"3\"), 게임종료(\"any key\")\n>>입력: "))
+
+            sound_effect = pygame.mixer.Sound(
+                "sounds/Maplestory-004.wav")  # 입력 후 출력 소리
+            sound_effect.play()
 
             Screen_Clear()
 
