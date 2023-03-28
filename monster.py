@@ -23,7 +23,8 @@ class Monster:  # 몬스터, 추후 마법 공격도?
 
     def physical_attack(self, other):
         damage = random.randint(
-            round(self.physical_power*0.85), round(self.physical_power*1.15))
+            round(self.physical_power*0.85), round(self.physical_power*1.15)) - other.physical_defense
+        max(damage, 1)
         other.hp -= damage
 
         print(f"{Colors.RED}{self.name}{Colors.RESET}의 공격! {Colors.GREEN}{other.name}{Colors.RESET}에게 {Colors.YELLOW}물리공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET})을(를) 입었습니다.")

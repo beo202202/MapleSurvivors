@@ -61,27 +61,19 @@ def select_and_create_monster():
                           123, 109, 0.25, 0.25, 1650)
     else:
         print("몬스터 생성 오류 입니다.")
-        # 달팽이 레벨1, hp15, mp0, 물공2, 마공1, 명중률10,회피율0,물방0,마방0
-        # 이름, 체력, 일반공격력, 일반방어력
         # snail = Monster("달팽이", 15, 2, 0)
         # blue_snail = Monster("파란달팽이", 20, 3, 0)
         # red_snail = Monster("빨간달팽이", 50, 15, 3)
         # shroom = Monster("스포아", 20, 6, 10)
         # orange_mushroom = Monster("주황버섯", 125, 41, 0)
-
         # cynical_monster("시니컬한 주황버섯", 150, 43, 0)
-
         # green_mushroom = Monster("초록버섯", 125, 47, 12)
         # blue_mushroom = Monster("파란버섯", 225, 58, 10)
-
         # crying_blue_mushroom = Monster("우는 파란버섯", 250, 63, 10)
-
         # horny_mushroom = Monster("뿔버섯", 175, 51, 30)
-
         # pig = Monster("돼지", 80, 25, 10)
         # ribon_pig = Monster("리본돼지", 125, 38, 10)
         # blueribon_pig = Monster("파란 리본돼지", 200, 54, 10)
-
         # mushmom = Monster("머쉬맘", 17500, 123, 25)
         # -----------------------------------------------------------
         # 스킬 달팽이
