@@ -84,30 +84,56 @@ def Select_And_Create_Monster():
 def screen_monster(name):
     if name == "달팽이":
         file_name = "snail"
+        pygame.mixer.music.load("sounds/Maple_Leaf.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "파란 달팽이":
         file_name = "blue_snail"
+        pygame.mixer.music.load("sounds/Maple_Leaf.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "빨간 달팽이":
         file_name = "red_snail"
+        pygame.mixer.music.load("sounds/Above_the_Treetops.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "스포아":
         file_name = "shroom"
+        pygame.mixer.music.load("sounds/Cava_Bien.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "주황버섯":
         file_name = "orange_mushroom"
+        pygame.mixer.music.load("sounds/Cava_Bien.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "시니컬한 주황버섯":
         file_name = "cynical_orange_mushroom"
+        pygame.mixer.music.load("sounds/Cava_Bien.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "초록버섯":
         file_name = "green_mushroom"
+        pygame.mixer.music.load("sounds/Ancient_Move.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "파란버섯":
         file_name = "blue_mushroom"
+        pygame.mixer.music.load("sounds/Rest_n_Peace.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "우는 파란버섯":
         file_name = "crying_blue_mushroom"
+        pygame.mixer.music.load("sounds/Rest_n_Peace.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "뿔버섯":
         file_name = "horny_mushroom"
+        pygame.mixer.music.load("sounds/Ancient_Move.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "돼지":
         file_name = "pig"
+        pygame.mixer.music.load("sounds/Blue_Sky.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "리본돼지":
         file_name = "ribon_pig"
+        pygame.mixer.music.load("sounds/Blue_Sky.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "파란 리본돼지":
         file_name = "blue_ribon_pig"
+        pygame.mixer.music.load("sounds/Blue_Sky.mp3")
+        pygame.mixer.music.play(-1)
     elif name == "머쉬맘":
         file_name = "mushmom"
     else:
