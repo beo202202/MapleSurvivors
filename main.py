@@ -22,6 +22,211 @@ monsters = ["달팽이", "파란 달팽이", "빨간 달팽이", "스포아",
 
 # 일방 마방이 1보다 낮은 경우 데미지*(1-그값)로 바꿔야한다.
 
+# 딕셔너리로...
+# mon = monster_dict[input("직업을 선택해주세요.")]
+# if mon_select in monster_dict.keys():
+#     job = player_dit[job_select]
+#     break
+
+monster_dict = {
+    "1": Monster(
+        name="달팽이",
+        lv=1,
+        hp=15,
+        mp=0,
+        physical_power=2,
+        magic_power=1,
+        pysical_defence=0.1,
+        magic_defence=0.1,
+        dexp=3,
+        meso=5,
+        file_name="snail",
+        new_music="sounds/Maple_Leaf.mp3"
+    ),
+    "2": Monster(
+        name="파란 달팽이",
+        lv=2,
+        hp=20,
+        mp=0,
+        physical_power=3,
+        magic_power=2,
+        pysical_defence=0.1,
+        magic_defence=0.1,
+        dexp=4,
+        meso=10,
+        file_name="blue_snail",
+        new_music="sounds/Maple_Leaf.mp3"
+    ),
+    "3": Monster(
+        name="빨간 달팽이",
+        lv=5,
+        hp=50,
+        mp=0,
+        physical_power=15,
+        magic_power=12,
+        pysical_defence=0.1,
+        magic_defence=0.1,
+        dexp=8,
+        meso=15,
+        file_name="red_snail",
+        new_music="sounds/Above_the_Treetops.mp3"
+    ),
+    "4": Monster(
+        name="스포아",
+        lv=3,
+        hp=20,
+        mp=0,
+        physical_power=6,
+        magic_power=4,
+        pysical_defence=0.1,
+        magic_defence=0.1,
+        dexp=4,
+        meso=10,
+        file_name="shroom",
+        new_music="sounds/Cava_Bien.mp3"
+    ),
+    "5": Monster(
+        name="주황버섯",
+        lv=10,
+        hp=125,
+        mp=10,
+        physical_power=41,
+        magic_power=35,
+        pysical_defence=0,
+        magic_defence=10,
+        dexp=17,
+        meso=20,
+        file_name="orage_mushroom",
+        new_music="sounds/Cava_Bien.mp3"
+    ),
+    "6": Monster(
+        name="시니컬한 주황버섯",
+        lv=11,
+        hp=150,
+        mp=20,
+        physical_power=43,
+        magic_power=38,
+        pysical_defence=0,
+        magic_defence=10,
+        dexp=19,
+        meso=25,
+        file_name="cynical_orage_mushroom",
+        new_music="sounds/Cava_Bien.mp3"
+    ),
+    "7": Monster(
+        name="초록버섯",
+        lv=10,
+        hp=125,
+        mp=10,
+        physical_power=47,
+        magic_power=35,
+        pysical_defence=0.1,
+        magic_defence=0.1,
+        dexp=17,
+        meso=20,
+        file_name="green_mushroom",
+        new_music="sounds/Ancient_Move.mp3"
+    ),
+    "8": Monster(
+        name="파란버섯",
+        lv=14,
+        hp=225,
+        mp=20,
+        physical_power=58,
+        magic_power=55,
+        pysical_defence=0.1,
+        magic_defence=0.1,
+        dexp=24,
+        meso=45,
+        file_name="blue_mushroom",
+        new_music="sounds/Rest_n_Peace.mp3"
+    ),
+    "9": Monster(
+        name="우는 파란 버섯",
+        lv=15,
+        hp=250,
+        mp=20,
+        physical_power=63,
+        magic_power=57,
+        pysical_defence=0.1,
+        magic_defence=0.1,
+        dexp=26,
+        meso=50,
+        file_name="crying_blue_mushroom",
+        new_music="sounds/Rest_n_Peace.mp3"
+    ),
+    "10": Monster(
+        name="뿔버섯",
+        lv=12,
+        hp=175,
+        mp=20,
+        physical_power=51,
+        magic_power=45,
+        pysical_defence=0.1,
+        magic_defence=0.1,
+        dexp=21,
+        meso=30,
+        file_name="horny_mushroom",
+        new_music="sounds/Ancient_Move.mp3"
+    ),
+    "11": Monster(
+        name="돼지",
+        lv=7,
+        hp=80,
+        mp=10,
+        physical_power=24,
+        magic_power=19,
+        pysical_defence=5,
+        magic_defence=20,
+        dexp=12,
+        meso=18,
+        file_name="pig",
+        new_music="sounds/Blue_Sky.mp3"
+    ),
+    "12": Monster(
+        name="리본돼지",
+        lv=10,
+        hp=125,
+        mp=10,
+        physical_power=38,
+        magic_power=35,
+        pysical_defence=10,
+        magic_defence=30,
+        dexp=17,
+        meso=20,
+        file_name="ribon_pig",
+        new_music="sounds/Blue_Sky.mp3"
+    ),
+    "13": Monster(
+        name="파란 리본돼지",
+        lv=13,
+        hp=200,
+        mp=20,
+        physical_power=54,
+        magic_power=49,
+        pysical_defence=10,
+        magic_defence=30,
+        dexp=23,
+        meso=47,
+        file_name="blue_ribon_pig",
+        new_music="sounds/Blue_Sky.mp3"
+    ),
+    "14": Monster(
+        name="머쉬맘",
+        lv=18,
+        hp=17500,
+        mp=2000,
+        physical_power=123,
+        magic_power=109,
+        pysical_defence=0.25,
+        magic_defence=0.25,
+        dexp=1650,
+        meso=1000,
+        file_name="mushmom",
+        new_music="sounds/FloralLife.mp3"
+    )
+}
+
 
 def select_and_create_monster():
     select_monster = random.choice(monsters)
@@ -40,7 +245,7 @@ def select_and_create_monster():
         monster = Monster(select_monster, 11, 150, 20, 43, 38, 0, 10, 19, 25)
     elif select_monster == "초록버섯":
         monster = Monster(select_monster, 10, 125, 10,
-                          47, 35, 0.05, 0.05, 17, 20)
+                          47, 35, 0.1, 0.1, 17, 20)
     elif select_monster == "파란버섯":
         monster = Monster(select_monster, 14, 225, 20,
                           58, 55, 0.1, 0.1, 24, 45)
@@ -61,46 +266,10 @@ def select_and_create_monster():
                           123, 109, 0.25, 0.25, 1650, 1000)
     else:
         print("몬스터 생성 오류 입니다.")
-        # snail = Monster("달팽이", 15, 2, 0)
-        # blue_snail = Monster("파란달팽이", 20, 3, 0)
-        # red_snail = Monster("빨간달팽이", 50, 15, 3)
-        # shroom = Monster("스포아", 20, 6, 10)
-        # orange_mushroom = Monster("주황버섯", 125, 41, 0)
-        # cynical_monster("시니컬한 주황버섯", 150, 43, 0)
-        # green_mushroom = Monster("초록버섯", 125, 47, 12)
-        # blue_mushroom = Monster("파란버섯", 225, 58, 10)
-        # crying_blue_mushroom = Monster("우는 파란버섯", 250, 63, 10)
-        # horny_mushroom = Monster("뿔버섯", 175, 51, 30)
-        # pig = Monster("돼지", 80, 25, 10)
-        # ribon_pig = Monster("리본돼지", 125, 38, 10)
-        # blueribon_pig = Monster("파란 리본돼지", 200, 54, 10)
-        # mushmom = Monster("머쉬맘", 17500, 123, 25)
-        # -----------------------------------------------------------
-        # 스킬 달팽이
     return monster
 
 # 몬스터 이미지
 
-
-# 딕셔너리로...
-# mon = monster_dict[input("직업을 선택해주세요.")]
-# if mon_select in monster_dict.keys():
-#     job = player_dit[job_select]
-#     break
-# monster_dict = {
-#     "1": Monster(
-#         name="달팽이"
-#         lv=1
-#         hp=15
-#         mp=0
-#         power=2
-#         magic_power=0
-#         pysical_defence=10
-#         magic_defence=10
-#         file_name="snail"
-#         new_music="sounds/Maple_Leaf.mp3"
-#     ),
-# }
 
 # current_music = ""
 played_music = []
