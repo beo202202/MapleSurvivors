@@ -5,7 +5,14 @@ from pygame.locals import *
 
 # 게임 창 초기화
 pygame.init()
-win_width, win_height = 800, 600
+win_width, win_height = 1280, 1024
+
+
+class Chang:
+    win_width = win_width
+    win_height = win_height
+
+
 screen = pygame.display.set_mode((win_width, win_height))
 pygame.display.set_caption("Maple Survivors")
 
@@ -139,7 +146,7 @@ while running:
             pygame.time.set_timer(pygame.USEREVENT, invincibility_cooldown)
 
         # 스킬과 몬스터 충돌
-        # if skill_rect.colliderect(monster_rec)
+        # if skill_rect.colliderect(monster_rect)
             # 메소 드랍 확률 설정
             # meso_drop_chance = random.randint(1, 100)
             # if meso_drop_chance >= 50:
