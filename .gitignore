@@ -1,6 +1,8 @@
 venv/
+before/
 __pycache__/
 .gitattributes
 dice.py
 dice2.py
 test*.py
+main2.py

@@ -1,342 +1,58 @@
+import pygame
 import random
-from textcolor import *
 
-
-class Character:                # 첫 캐릭터
-    def __init__(self, name, str_stat, dex_stat, int_stat, luk_stat):
-        self.name = name
-        # 레벨도 넣어야함... 수치... 125 * lv
-        self.hp = 125 + str_stat * 10 + dex_stat * 5
-        self.max_hp = 125 + str_stat * 10 + dex_stat * 5
-        self.max_mp = 70 + int_stat * 10
-        self.mp = 70 + int_stat * 10
-        self.str_stat = str_stat
-        self.dex_stat = dex_stat
-        self.int_stat = int_stat
-        self.luk_stat = luk_stat
-        self.physical_defense = round(
-            str_stat * 0.5 + dex_stat * 0.25 + luk_stat * 0.25)  # + 방어구
-        self.magic_defense = round(
-            dex_stat * 0.125 + int_stat * 0.25 + luk_stat * 0.125)  # + 방어구
-
-    # physical_attack, magical_attack
-    def physical_attack(self, other):
-        # 기본 숙련도 0.4
-        # 데미지 계산을 직업마다 다르게, 공격 시 other의 디펜스도... , 레벨 차...
-        max_stat_attack = round((self.str_stat * 4 + self.dex_stat) *
-                                0.1)     # (주스탯*4+부스탯) * 직업계수
-        # 숙련도% × 뒷스공
-        min_stat_attack = round(0.4 * max_stat_attack)
-        attack_count = 1
-
-        for i in range(attack_count):
-            if other.physical_defense > 0:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - other.physical_defense
-            else:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - (1 - other.physical_defense)
-            damage = round(max(damage, 1))
-            other.hp -= damage
-
-            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
-
-        if other.hp <= 0:
-            other.hp = 0
-            print(f"{other.name}이(가) 쓰러졌습니다.")
-
-    def skill_attack(self, other):
-        print("스킬을 사용할 수 없는 직업입니다.")
-
-    def status(self):
-        hp_left = round(self.hp/self.max_hp * 50)
-        mp_left = round(self.mp/self.max_mp * 50)
-        # hp % 그림으로
-        if 0.5 <= self.hp/self.max_hp <= 1:
-            print(f"{Colors.BLUE}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.GREEN}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET}, {Colors.BLUE}MP {self.mp}{Colors.RESET}/{Colors.BLUE}{self.max_mp}{Colors.RESET}")
-            print(f"{Colors.GREEN}░{Colors.RESET}" *
-                  hp_left + "░" * (50 - hp_left))
-        elif 0.2 <= self.hp/self.max_hp < 0.5:
-            print(f"{Colors.BLUE}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.ORANGE}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET}, {Colors.BLUE}MP {self.mp}{Colors.RESET}/{Colors.BLUE}{self.max_mp}{Colors.RESET}")
-            print(f"{Colors.ORANGE}░{Colors.RESET}" *
-                  hp_left + "░" * (50 - hp_left))
-        else:
-            print(f"{Colors.BLUE}{self.name}{Colors.RESET}의 상태: {Colors.RED} HP {Colors.RESET}{Colors.RED}{self.hp}{Colors.RESET}/{Colors.GREEN}{self.max_hp}{Colors.RESET}, {Colors.BLUE}MP {self.mp}{Colors.RESET}/{Colors.BLUE}{self.max_mp}{Colors.RESET}")
-            print(f"{Colors.RED}░{Colors.RESET}" *
-                  hp_left + "░" * (50 - hp_left))
-
-        # mp % 그림으로
-        print(f"{Colors.BLUE}░{Colors.RESET}" *
-              mp_left + "░" * (50 - mp_left))
-
-        print("\n")
-
-
-class Beginner(Character):      # 초보자
-    def __init__(self, name, str_stat, dex_stat, int_stat, luk_stat):
-        super().__init__(name, str_stat, dex_stat, int_stat, luk_stat)
-
-    def get_job(selff):
-        print(f"{Colors.RESET}당신은 전직을 하지 않은 초보자입니다.")
-
-
-class Knight(Character):        # 검사, 추후 레벨10부터 가능하게?
-    def __init__(self, name, str_stat, dex_stat, int_stat, luk_stat):
-        super().__init__(name, str_stat, dex_stat, int_stat, luk_stat)
-        # self.max_hp = 50 + str_stat * 5 + dex_stat * 1
-        # self.hp = 50 + str_stat * 5 + dex_stat * 1
-        self.skill_name = "파워 스트라이크"
-        self.skill_mp = 12
-        self.knight_constant = 0.6
-        self.knight_skill_constant = 2.6
-
-    def get_job(self):
-        print(f"{Colors.RESET}{Colors.RED}검사{Colors.RESET}로 전직하셨습니다.")
-        print(f"{Colors.BLUE}{self.skill_name}{Colors.RESET}을(를) 사용하실 수 있습니다.")
-
-    def physical_attack(self, other):
-        max_stat_attack = round((self.str_stat * 4 + self.dex_stat) *
-                                self.knight_constant)     # (주스탯*4+부스탯) * 직업계수
-        min_stat_attack = round(0.7 * max_stat_attack)     # 숙련도% × 최대스공
-        attack_count = 1
-
-        for i in range(attack_count):
-            if other.physical_defense > 0:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - other.physical_defense
-            else:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - (1 - other.physical_defense)
-            damage = round(max(damage, 1))
-            other.hp -= damage
-
-            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
-
-        if other.hp <= 0:
-            other.hp = 0
-            print(f"{other.name}이(가) 쓰러졌습니다.")
-
-    def skill_attack(self, other):
-        if (self.mp >= self.skill_mp):
-            self.mp -= self.skill_mp
-
-            max_stat_attack = round((self.str_stat * 4 + self.dex_stat) *
-                                    self.knight_constant * 2.6)     # (주스탯*4+부스탯) * 직업계수 * 스킬계수
-            min_stat_attack = round(0.7 * max_stat_attack)     # 숙련도% × 최대스공
-            attack_count = 1
-
-            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.BLUE}마나{Colors.RESET}({Colors.BLUE}{self.skill_mp}{Colors.RESET})를 소모하여")
-            for i in range(attack_count):
-                if other.physical_defense > 0:
-                    damage = random.randint(
-                        min_stat_attack, max_stat_attack) - other.physical_defense
-                else:
-                    damage = random.randint(
-                        min_stat_attack, max_stat_attack) - (1 - other.physical_defense)
-                damage = round(max(damage, 1))
-                other.hp -= damage
-
-                print(f"{Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
-
-            if other.hp <= 0:
-                other.hp = 0
-                print(f"{other.name}이(가) 쓰러졌습니다.")
-
-        else:
-            print("MP가 부족합니다.")
-
-
-class Archer(Character):        # 아처
-    def __init__(self, name, str_stat, dex_stat, int_stat, luk_stat):
-        super().__init__(name, str_stat, dex_stat, int_stat, luk_stat)
-        # self.max_hp = 50 + str_stat * 5 + dex_stat * 1
-        # self.hp = 50 + str_stat * 5 + dex_stat * 1
-        self.skill_name = "애로우 블로우"
-        self.skill_mp = 11
-        self.archer_constant = 0.5
-
-    def get_job(self):
-        print(f"{Colors.RESET}{Colors.RED}아처{Colors.RESET}로 전직하셨습니다.")
-        print(f"{Colors.BLUE}{self.skill_name}{Colors.RESET}을(를) 사용하실 수 있습니다.")
-
-    def physical_attack(self, other):
-        max_stat_attack = round((self.dex_stat * 4 + self.str_stat) *
-                                self.archer_constant)     # (주스탯*4+부스탯) * 직업계수
-        min_stat_attack = round(0.8 * max_stat_attack)     # 숙련도% × 최대스공
-
-        attack_count = 1
-
-        for i in range(attack_count):
-            if other.physical_defense > 0:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - other.physical_defense
-            else:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - (1 - other.physical_defense)
-            damage = round(max(damage, 1))
-            other.hp -= damage
-
-            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
-
-        if other.hp <= 0:
-            other.hp = 0
-            print(f"{other.name}이(가) 쓰러졌습니다.")
-
-    def skill_attack(self, other):
-        if (self.mp >= self.skill_mp):
-            self.mp -= self.skill_mp
-
-            max_stat_attack = round((self.str_stat * 4 + self.dex_stat) *
-                                    self.archer_constant * 1.6)     # (주스탯*4+부스탯) * 직업계수 * 스킬계수
-            min_stat_attack = round(0.6 * max_stat_attack)     # 숙련도% × 최대스공
-            attack_count = 3
-
-            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.BLUE}마나{Colors.RESET}({Colors.BLUE}{self.skill_mp}{Colors.RESET})를 소모하여")
-            for i in range(attack_count):
-                if other.physical_defense > 0:
-                    damage = random.randint(
-                        min_stat_attack, max_stat_attack) - other.physical_defense
-                else:
-                    damage = random.randint(
-                        min_stat_attack, max_stat_attack) - (1 - other.physical_defense)
-                damage = round(max(damage, 1))
-                other.hp -= damage
-
-                print(f"{Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
-
-            if other.hp <= 0:
-                other.hp = 0
-                print(f"{other.name}이(가) 쓰러졌습니다.")
-
-        else:
-            print("MP가 부족합니다.")
-
-
-class Magician(Character):      # 매지션
-    def __init__(self, name, str_stat, dex_stat, int_stat, luk_stat):
-        super().__init__(name, str_stat, dex_stat, int_stat, luk_stat)
-        # self.max_hp = 25 + str_stat * 2 + dex_stat * 1
-        # self.hp = 50 + str_stat * 2 + dex_stat * 1
-        self.skill_name = "매직 클로"
-        self.skill_mp = 20
-        self.magician_constant = 0.3
-
-    def get_job(self):
-        print(f"{Colors.RESET}{Colors.RED}매지션{Colors.RESET}로 전직하셨습니다.")
-        print(f"{Colors.BLUE}{self.skill_name}{Colors.RESET}을(를) 사용하실 수 있습니다.")
-
-    def physical_attack(self, other):       # 매지션은 일반공격이 매우 약하지
-        max_stat_attack = round((self.str_stat * 4 + self.dex_stat) *
-                                self.magician_constant)     # (주스탯*4+부스탯) * 직업계수
-        min_stat_attack = round(0.4 * max_stat_attack)     # 숙련도% × 최대스공
-        attack_count = 1
-
-        for i in range(attack_count):
-            if other.physical_defense > 0:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - other.physical_defense
-            else:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - (1 - other.physical_defense)
-            damage = round(max(damage, 1))
-            other.hp -= damage
-
-            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
-
-        if other.hp <= 0:
-            other.hp = 0
-            print(f"{other.name}이(가) 쓰러졌습니다.")
-
-    def skill_attack(self, other):
-        if (self.mp >= self.skill_mp):
-            self.mp -= self.skill_mp
-
-            max_stat_attack = round((self.int_stat * 4 + self.luk_stat) *
-                                    self.magician_constant * 4)     # (주스탯*4+부스탯) * 직업계수 * 스킬계수
-            min_stat_attack = round(0.6 * max_stat_attack)     # 숙련도% × 최대스공
-            attack_count = 2
-
-            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.BLUE}마나{Colors.RESET}({Colors.BLUE}{self.skill_mp}{Colors.RESET})를 소모하여")
-            for i in range(attack_count):
-                if other.physical_defense > 0:
-                    damage = random.randint(
-                        min_stat_attack, max_stat_attack) - other.magic_defense
-                else:
-                    damage = random.randint(
-                        min_stat_attack, max_stat_attack) - (1 - other.magic_defense)
-                damage = round(max(damage, 1))
-                other.hp -= damage
-
-                print(f"{Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
-
-            if other.hp <= 0:
-                other.hp = 0
-                print(f"{other.name}이(가) 쓰러졌습니다.")
-
-        else:
-            print("MP가 부족합니다.")
-
-
-class Rogue(Character):         # 로그
-    def __init__(self, name, str_stat, dex_stat, int_stat, luk_stat):
-        super().__init__(name, str_stat, dex_stat, int_stat, luk_stat)
-        # self.max_hp = 25 + str_stat * 2 + dex_stat * 1
-        # self.hp = 50 + str_stat * 2 + dex_stat * 1
-        self.skill_name = "럭키★세븐"
-        self.skill_mp = 14
-        self.rogue_constant = 0.7
-
-    def get_job(self):
-        print(f"{Colors.RESET}{Colors.RED}로그{Colors.RESET}로 전직하셨습니다.")
-        print(f"{Colors.BLUE}{self.skill_name}{Colors.RESET}을(를) 사용하실 수 있습니다.")
-
-    def physical_attack(self, other):       # 매지션은 일반공격이 매우 약하지
-        max_stat_attack = round((self.luk_stat * 4 + self.dex_stat) *
-                                self.rogue_constant)     # (주스탯*4+부스탯) * 직업계수
-        min_stat_attack = round(0.4 * max_stat_attack)     # 숙련도% × 최대스공
-        attack_count = 1
-
-        for i in range(attack_count):
-            if other.physical_defense > 0:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - other.physical_defense
-            else:
-                damage = random.randint(
-                    min_stat_attack, max_stat_attack) - (1 - other.physical_defense)
-            damage = round(max(damage, 1))
-            other.hp -= damage
-
-            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.RED}{other.name}{Colors.RESET}에게 {Colors.YELLOW}일반공격{Colors.RESET}({Colors.YELLOW}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
-
-        if other.hp <= 0:
-            other.hp = 0
-            print(f"{other.name}이(가) 쓰러졌습니다.")
-
-    def skill_attack(self, other):
-        if (self.mp >= self.skill_mp):
-            self.mp -= self.skill_mp
-
-            max_stat_attack = round((self.luk_stat * 4 + self.dex_stat) *
-                                    self.rogue_constant * 1.9)     # (주스탯*4+부스탯) * 직업계수 * 스킬계수
-            min_stat_attack = round(0.6 * max_stat_attack)     # 숙련도% × 최대스공
-            attack_count = 2
-
-            print(f"{Colors.GREEN}{self.name}{Colors.RESET}의 공격! {Colors.BLUE}마나{Colors.RESET}({Colors.BLUE}{self.skill_mp}{Colors.RESET})를 소모하여")
-            for i in range(attack_count):
-                if other.physical_defense > 0:
-                    damage = random.randint(
-                        min_stat_attack, max_stat_attack) - other.physical_defense
-                else:
-                    damage = random.randint(
-                        min_stat_attack, max_stat_attack) - (1 - other.physical_defense)
-                damage = round(max(damage, 1))
-                other.hp -= damage
-
-                print(f"{Colors.RED}{other.name}{Colors.RESET}에게 {Colors.BLUE}{self.skill_name}{Colors.RESET}({Colors.BLUE}{damage}{Colors.RESET}){Colors.RESET}을(를) 입혔습니다.")
-
-            if other.hp <= 0:
-                other.hp = 0
-                print(f"{other.name}이(가) 쓰러졌습니다.")
-
-        else:
-            print("MP가 부족합니다.")
+# 게임 창 초기화
+pygame.init()
+win_width, win_height = 800, 600
+screen = pygame.display.set_mode((win_width, win_height))
+pygame.display.set_caption("Maple Survivors")
+
+# 게임 맵 초기화
+bg_image = pygame.image.load("img/maple_island.png")
+bg_image = pygame.transform.scale(bg_image, (win_width, win_height))
+bg_rect = bg_image.get_rect()
+bg_rect.center = (win_width // 2, win_height // 2)
+
+# 캐릭터 초기화
+char_image = pygame.image.load("img/dodo.png")
+char_image = pygame.transform.scale(char_image, (64, 64))
+char_rect = char_image.get_rect()
+char_rect.center = (win_width // 2, win_height // 2)
+
+# 몬스터 초기화
+monster_images = [
+    pygame.image.load("img/snail.png"),
+    pygame.image.load("img/blue_snail.png"),
+    pygame.image.load("img/red_snail.png")
+]
+monster_images = [pygame.transform.scale(
+    img, (64, 64)) for img in monster_images]
+monster_list = []
+for i in range(10):
+    monster_rect = monster_images[random.randint(0, 2)].get_rect()
+    monster_rect.center = (random.randint(
+        100, win_width-100), random.randint(100, win_height-100))
+    monster_list.append(monster_rect)
+
+# 게임 루프
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # 게임 맵 그리기
+    screen.blit(bg_image, bg_rect)
+
+    # 몬스터 그리기
+    for monster_rect, monster_image in zip(monster_list, monster_images):
+        screen.blit(monster_image, monster_rect)
+
+    # 캐릭터 그리기
+    screen.blit(char_image, char_rect)
+
+    # 게임 화면 업데이트
+    pygame.display.update()
+
+# 게임 종료
+pygame.quit()
