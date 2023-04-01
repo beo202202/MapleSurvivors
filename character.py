@@ -1,58 +1,48 @@
 import pygame
-import random
+from pygame.locals import *
 
-# 게임 창 초기화
-pygame.init()
-win_width, win_height = 800, 600
-screen = pygame.display.set_mode((win_width, win_height))
-pygame.display.set_caption("Maple Survivors")
 
-# 게임 맵 초기화
-bg_image = pygame.image.load("img/maple_island.png")
-bg_image = pygame.transform.scale(bg_image, (win_width, win_height))
-bg_rect = bg_image.get_rect()
-bg_rect.center = (win_width // 2, win_height // 2)
+class Character:
+    def __init__(self, image_path, pos):
+        self.image = pygame.image.load(image_path)
+        self.image = pygame.transform.scale(self.image, (50, 50))  # 이미지 축소
+        self.rect = self.image.get_rect()
+        self.rect.center = pos
 
-# 캐릭터 초기화
-char_image = pygame.image.load("img/dodo.png")
-char_image = pygame.transform.scale(char_image, (64, 64))
-char_rect = char_image.get_rect()
-char_rect.center = (win_width // 2, win_height // 2)
+    def move_left(self):
+        self.rect.move_ip(-5, 0)
 
-# 몬스터 초기화
-monster_images = [
-    pygame.image.load("img/snail.png"),
-    pygame.image.load("img/blue_snail.png"),
-    pygame.image.load("img/red_snail.png")
-]
-monster_images = [pygame.transform.scale(
-    img, (64, 64)) for img in monster_images]
-monster_list = []
-for i in range(10):
-    monster_rect = monster_images[random.randint(0, 2)].get_rect()
-    monster_rect.center = (random.randint(
-        100, win_width-100), random.randint(100, win_height-100))
-    monster_list.append(monster_rect)
+    def move_right(self):
+        self.rect.move_ip(5, 0)
 
-# 게임 루프
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    def move_up(self):
+        self.rect.move_ip(0, -5)
 
-    # 게임 맵 그리기
-    screen.blit(bg_image, bg_rect)
+    def move_down(self):
+        self.rect.move_ip(0, 5)
 
-    # 몬스터 그리기
-    for monster_rect, monster_image in zip(monster_list, monster_images):
-        screen.blit(monster_image, monster_rect)
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
 
-    # 캐릭터 그리기
-    screen.blit(char_image, char_rect)
 
-    # 게임 화면 업데이트
-    pygame.display.update()
+class Beginner(Character):
+    def __init__(self, image_path, pos):
+        super().__init__(image_path, pos)
+        self.attack_power = 10
+        self.defense_power = 5
 
-# 게임 종료
-pygame.quit()
+    def attack(self, target):
+        damage = self.attack_power - target.defense_power
+        target.health -= damage
+
+    def defend(self):
+        self.defense_power += 2
+
+    def draw(self, surface):
+        super().draw(surface)
+        # 캐릭터 위에 공격력과 방어력을 나타내는 문자열을 출력
+        # font = pygame.font.SysFont(None, 30)
+        # text = f"ATK: {self.attack_power} / DEF: {self.defense_power}"
+        # text_surface = font.render(text, True, (255, 255, 255))
+        # text_rect = text_surface.get_rect(center=self.rect.center)
+        # surface.blit(text_surface, text_rect)
