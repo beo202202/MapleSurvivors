@@ -20,11 +20,8 @@ class Monster(pygame.sprite.Sprite):
         # if abs(distance) < 300:
         #    monster_rect.move_ip(direction * self.speed, 0)
 
-        # 몬스터가 화면을 벗어나면 재배치
-        if monster_rect.right < 0:
-            self.rect.left = win_width
-        elif monster_rect.left > win_width:
-            self.rect.right = 0
+        # 위치 제한 추가
+        monster_rect.clamp_ip(win_rect)
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
