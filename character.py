@@ -2,32 +2,52 @@ import pygame
 from pygame.locals import *
 
 
-class Character:
-    def __init__(self, image_path, pos):
+class Character(pygame.sprite.Sprite):
+    def __init__(self, image_path, pos, screen):
         self.image = pygame.image.load(image_path)
         self.image = pygame.transform.scale(self.image, (50, 50))  # 이미지 축소
         self.rect = self.image.get_rect()
         self.rect.center = pos
+        self.screen = screen
 
     def move_left(self):
-        self.rect.move_ip(-5, 0)
+        new_rect = self.rect.move(-1, 0)
+        if self.check_collision(new_rect):
+            self.rect = new_rect
 
     def move_right(self):
-        self.rect.move_ip(5, 0)
+        new_rect = self.rect.move(1, 0)
+        if self.check_collision(new_rect):
+            self.rect = new_rect
 
     def move_up(self):
-        self.rect.move_ip(0, -5)
+        new_rect = self.rect.move(0, -1)
+        if self.check_collision(new_rect):
+            self.rect = new_rect
 
     def move_down(self):
-        self.rect.move_ip(0, 5)
+        new_rect = self.rect.move(0, 1)
+        if self.check_collision(new_rect):
+            self.rect = new_rect
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
+    def update(self, map_rect):
+        # 캐릭터가 맵 밖으로 나가지 않도록 처리합니다.
+        self.rect.clamp_ip(map_rect)
+
+    def check_collision(self, rect):
+        if rect.left < 0 or rect.right > self.screen.get_width():
+            return False
+        if rect.top < 0 or rect.bottom > self.screen.get_height():
+            return False
+        return True
+
 
 class Beginner(Character):
-    def __init__(self, image_path, pos):
-        super().__init__(image_path, pos)
+    def __init__(self, image_path, pos, screen):
+        super().__init__(image_path, pos, screen)
         self.attack_power = 10
         self.defense_power = 5
 

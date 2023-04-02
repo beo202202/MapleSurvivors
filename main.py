@@ -6,7 +6,7 @@ from map import Map, MapleIsland
 
 # 게임 창 초기화
 pygame.init()
-win_width, win_height = 800, 600
+win_width, win_height = 1280, 1024
 screen = pygame.display.set_mode((win_width, win_height))
 pygame.display.set_caption("Maple Survivors")
 
@@ -14,7 +14,7 @@ pygame.display.set_caption("Maple Survivors")
 maple_island = MapleIsland((win_width, win_height))
 
 # 캐릭터 초기화
-player = Beginner("img/dodo.png", (win_width // 2, win_height // 2))
+player = Beginner("img/dodo.png", (win_width // 2, win_height // 2), screen)
 
 # 몬스터 초기화
 monster_list = []
@@ -44,6 +44,9 @@ while running:
         player.move_down()
     if keys[pygame.K_ESCAPE]:
         running = False
+
+    # 게임 맵 업데이트
+    maple_island.update(player.rect, screen.get_rect())
 
     # 게임 맵 그리기
     maple_island.draw(screen)
