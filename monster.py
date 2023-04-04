@@ -1,16 +1,16 @@
 import pygame
 import random
+from character import Character
 
 # monster.py
 
-
-# monster.py
 
 class Monster(pygame.sprite.Sprite):
     def __init__(self, image_path, map_size):
         super().__init__()
         self.speed = 1
 
+        self.lv = 1
         self.hp = 1
         self.max_hp = 1
         self.mp = 0
@@ -73,6 +73,13 @@ class Monster(pygame.sprite.Sprite):
                 direction = (distance[0] / mag, distance[1] / mag)
                 self.rect.move_ip(
                     direction[0] * overlap, direction[1] * overlap)
+
+        # 플레이어와의 충돌 검사
+        if self.rect.colliderect(char_rect):
+            # 충돌 시 플레이어의 체력 감소
+            # Character.hp -= 10
+            # Character.hit(20)
+            pass
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
