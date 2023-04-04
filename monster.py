@@ -1,6 +1,6 @@
 import pygame
 import random
-from character import Character
+# from character import Character
 
 # monster.py
 

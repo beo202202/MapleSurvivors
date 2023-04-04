@@ -57,12 +57,12 @@ class Character(pygame.sprite.Sprite):
             return False
         return True
 
-    def hit(self, physical_att):
-        self.hp -= physical_att
-        # self.hp -= max(physical_att - self.physical_def, 1)
-        if self.hp <= 0:
-            # 게임 종료 또는 리스타트 등의 처리
-            pass
+    # def hit(self, physical_att):
+    #     self.hp -= physical_att
+    #     # self.hp -= max(physical_att - self.physical_def, 1)
+    #     if self.hp <= 0:
+    #         # 게임 종료 또는 리스타트 등의 처리
+    #         pass
 
 
 class Beginner(Character):
