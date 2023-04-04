@@ -1,6 +1,8 @@
 import pygame
 from pygame.locals import *
 
+# character.py
+
 
 class Character(pygame.sprite.Sprite):
     def __init__(self, image_path, pos, screen):
@@ -9,24 +11,25 @@ class Character(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = pos
         self.screen = screen
+        self.speed = 2
 
     def move_left(self):
-        new_rect = self.rect.move(-1, 0)
+        new_rect = self.rect.move(-self.speed, 0)
         if self.check_collision(new_rect):
             self.rect = new_rect
 
     def move_right(self):
-        new_rect = self.rect.move(1, 0)
+        new_rect = self.rect.move(self.speed, 0)
         if self.check_collision(new_rect):
             self.rect = new_rect
 
     def move_up(self):
-        new_rect = self.rect.move(0, -1)
+        new_rect = self.rect.move(0, -self.speed)
         if self.check_collision(new_rect):
             self.rect = new_rect
 
     def move_down(self):
-        new_rect = self.rect.move(0, 1)
+        new_rect = self.rect.move(0, self.speed)
         if self.check_collision(new_rect):
             self.rect = new_rect
 

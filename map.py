@@ -6,18 +6,21 @@ class Map:
         self.image = pygame.image.load(image_path)
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect(center=(size[0] // 2, size[1] // 2))
+        self.width = self.rect.width
+        self.height = self.rect.height
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
     def update(self, player_rect, screen_rect):
         self.rect.center = player_rect.center
-        # 게임 화면 범위 내에서만 맵 이미지가 보이도록 처리합니다.
         self.rect.clamp_ip(screen_rect)
 
-        # 캐릭터가 맵 밖으로 나가지 않도록 처리합니다.
         if not self.rect.contains(player_rect):
             player_rect.clamp_ip(self.rect)
+
+    def get_size(self):
+        return self.width, self.height
 
 
 class MapleIsland(Map):
