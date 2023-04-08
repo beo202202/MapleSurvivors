@@ -23,6 +23,8 @@ class Character(pygame.sprite.Sprite):
         self.physical_def = 0
         self.magic_def = 0
 
+        self.skill_cool_time = 0
+
     def move_left(self):
         new_rect = self.rect.move(-self.speed, 0)
         if self.check_collision(new_rect):
@@ -78,6 +80,8 @@ class Beginner(Character):
         self.magic_att = 7
         self.physical_def = 5
         self.magic_def = 2
+
+        self.skill_cool_time = 0
 
     def update_status(self):
         self.hp = self.max_hp + 10 * self.lv

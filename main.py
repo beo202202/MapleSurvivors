@@ -1,8 +1,9 @@
 import pygame
 import random
-from character import Beginner
-from monster import Snail, BlueSnail, RedSnail
-from map import Map, MapleIsland
+from character import *
+from monster import *
+from map import *
+from skill import *
 
 WIN_WIDTH, WIN_HEIGHT = 1280, 1024
 NUM_MONSTERS = 50
@@ -21,7 +22,7 @@ def init_monsters(num_monsters, screen_size):
 def init_game_objects(screen_size):
     maple_island = MapleIsland(screen_size)
     player = Beginner(
-        "img/dodo.png", (screen_size[0] // 2, screen_size[1] // 2), screen)
+        "imgs/dodo.png", (screen_size[0] // 2, screen_size[1] // 2), screen)
     return maple_island, player
 
 
@@ -34,11 +35,13 @@ pygame.display.set_caption("Maple Survivors")
 # 게임 맵, 캐릭터, 몬스터 초기화
 maple_island, player = init_game_objects((WIN_WIDTH, WIN_HEIGHT))
 monster_list = init_monsters(NUM_MONSTERS, (WIN_WIDTH, WIN_HEIGHT))
+# 스킬 초기화
+shell_throwing = Shell_Throwing()
 
 
 def restart_game():
     global maple_island, player, monster_list
-    player = Beginner("img/dodo.png", (WIN_WIDTH //
+    player = Beginner("imgs/dodo.png", (WIN_WIDTH //
                       2, WIN_HEIGHT // 2), screen)
     monster_list = init_monsters(NUM_MONSTERS, (WIN_WIDTH, WIN_HEIGHT))
     maple_island = MapleIsland((WIN_WIDTH, WIN_HEIGHT))
@@ -51,6 +54,10 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:  # 마우스 왼쪽 버튼 눌림
+                # 마우스 클릭 위치로 스킬 사용
+                # 추후 monster_list
+                shell_throwing.use(pygame.mouse.get_pos(), player.rect, screen)
             if event.button == 3:  # 마우스 오른쪽 버튼 눌림
                 restart_game()
 
@@ -81,8 +88,19 @@ while running:
     # 캐릭터 그리기
     player.draw(screen)
 
+    # 스킬 쿨다운 처리
+    # shell_throwing.draw(screen)
+
     # 게임 화면 업데이트
     pygame.display.update()
 
+    # 스킬 업데이트
+    if shell_throwing.is_using() and not shell_throwing.is_available():
+        shell_throwing.start_cooldown()
+    elif not shell_throwing.is_using() and shell_throwing.is_available():
+        shell_throwing.image = pygame.image.load(
+            "imgs/snail_shell.png").convert_alpha()
+        shell_throwing.image = pygame.transform.scale(
+            shell_throwing.image, (50, 50))
 # 게임 종료
 pygame.quit()

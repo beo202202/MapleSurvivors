@@ -25,7 +25,7 @@ class Map:
 
 class MapleIsland(Map):
     def __init__(self, size):
-        super().__init__("img/maple_island.png", size)
+        super().__init__("imgs/maple_island.png", size)
         self.offset = (0, 0)
 
     # def update(self, player_rect, screen_size):
