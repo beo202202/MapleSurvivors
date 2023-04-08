@@ -64,15 +64,15 @@ class Monster(pygame.sprite.Sprite):
                 monster_rect.bottom = map_rect.bottom
 
         # 몬스터끼리 충돌 검사
-        for other in monsters:
-            if other != self and self.rect.colliderect(other.rect):
-                distance = self.rect.centerx - \
-                    other.rect.centerx, self.rect.centery - other.rect.centery
-                mag = (distance[0] ** 2 + distance[1] ** 2) ** 0.5
-                overlap = (self.radius + other.radius) - mag
-                # direction = (distance[0] / mag, distance[1] / mag)
-                # self.rect.move_ip(
-                #     direction[0] * overlap, direction[1] * overlap)
+        # for other in monsters:
+        #     if other != self and self.rect.colliderect(other.rect):
+        #         distance = self.rect.centerx - \
+        #             other.rect.centerx, self.rect.centery - other.rect.centery
+        #         mag = (distance[0] ** 2 + distance[1] ** 2) ** 0.5
+        #         overlap = (self.radius + other.radius) - mag
+            # direction = (distance[0] / mag, distance[1] / mag)
+            # self.rect.move_ip(
+            #     direction[0] * overlap, direction[1] * overlap)
 
         # 플레이어와의 충돌 검사
         if self.rect.colliderect(char_rect):
@@ -81,13 +81,16 @@ class Monster(pygame.sprite.Sprite):
             # Character.hit(20)
             pass
 
+        # 몬스터의 중심점(center) 값을 갱신합니다.
+        self.center = self.rect.center
+
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
 
 class Snail(Monster):
     def __init__(self, pos):
-        super().__init__("img/snail.png", pos)
+        super().__init__("imgs/snail.png", pos)
         self.speed = 1
 
         self.lv = 1
@@ -106,7 +109,7 @@ class Snail(Monster):
 
 class BlueSnail(Monster):
     def __init__(self, pos):
-        super().__init__("img/blue_snail.png", pos)
+        super().__init__("imgs/blue_snail.png", pos)
         self.speed = 1
 
         self.lv = 2
@@ -125,7 +128,7 @@ class BlueSnail(Monster):
 
 class RedSnail(Monster):
     def __init__(self, pos):
-        super().__init__("img/red_snail.png", pos)
+        super().__init__("imgs/red_snail.png", pos)
         self.speed = 1
 
         self.lv = 5
