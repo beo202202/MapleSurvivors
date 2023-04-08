@@ -70,9 +70,9 @@ class Monster(pygame.sprite.Sprite):
                     other.rect.centerx, self.rect.centery - other.rect.centery
                 mag = (distance[0] ** 2 + distance[1] ** 2) ** 0.5
                 overlap = (self.radius + other.radius) - mag
-                direction = (distance[0] / mag, distance[1] / mag)
-                self.rect.move_ip(
-                    direction[0] * overlap, direction[1] * overlap)
+                # direction = (distance[0] / mag, distance[1] / mag)
+                # self.rect.move_ip(
+                #     direction[0] * overlap, direction[1] * overlap)
 
         # 플레이어와의 충돌 검사
         if self.rect.colliderect(char_rect):
