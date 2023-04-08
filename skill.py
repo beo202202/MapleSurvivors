@@ -40,6 +40,8 @@ class Skill():
             self.image_rect.move_ip(self.direction.normalize() * 10)
             screen.blit(self.image, self.image_rect)
 
+# 프로토
+
 
 class Shell_Throwing(Skill):
     def __init__(self):

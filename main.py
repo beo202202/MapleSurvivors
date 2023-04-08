@@ -49,16 +49,6 @@ def restart_game():
 # 게임 루프
 running = True
 while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:  # 마우스 왼쪽 버튼 눌림
-                # 마우스 클릭 위치로 스킬 사용
-                # 추후 monster_list
-                shell_throwing.use(pygame.mouse.get_pos(), player.rect, screen)
-            if event.button == 3:  # 마우스 오른쪽 버튼 눌림
-                restart_game()
 
     # 키보드 입력 처리
     keys = pygame.key.get_pressed()
@@ -89,17 +79,28 @@ while running:
 
     # 스킬 쿨다운 처리
     # shell_throwing.draw(screen)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:  # 마우스 왼쪽 버튼 눌림
+                # 마우스 클릭 위치로 스킬 사용
+                shell_throwing.use(pygame.mouse.get_pos(),
+                                   player.rect, screen)
+            if event.button == 3:  # 마우스 오른쪽 버튼 눌림
+                restart_game()
+
+    # # 스킬 업데이트
+    # if shell_throwing.is_using() and not shell_throwing.is_available():
+    #     shell_throwing.start_cooldown()
+    # elif not shell_throwing.is_using() and shell_throwing.is_available():
+    #     shell_throwing.image = pygame.image.load(
+    #         "imgs/snail_shell.png").convert_alpha()
+    #     shell_throwing.image = pygame.transform.scale(
+    #         shell_throwing.image, (50, 50))
 
     # 게임 화면 업데이트
     pygame.display.update()
 
-    # 스킬 업데이트
-    if shell_throwing.is_using() and not shell_throwing.is_available():
-        shell_throwing.start_cooldown()
-    elif not shell_throwing.is_using() and shell_throwing.is_available():
-        shell_throwing.image = pygame.image.load(
-            "imgs/snail_shell.png").convert_alpha()
-        shell_throwing.image = pygame.transform.scale(
-            shell_throwing.image, (50, 50))
 # 게임 종료
 pygame.quit()

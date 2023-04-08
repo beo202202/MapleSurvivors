@@ -10,6 +10,7 @@ class Character(pygame.sprite.Sprite):
         self.image = pygame.image.load(self.image_path)
         self.image = pygame.transform.scale(self.image, (100, 100))  # 이미지 축소
         self.rect = self.image.get_rect()
+        self.direction = "left"
         self.rect.center = pos
         self.screen = screen
         self.speed = 2
@@ -50,8 +51,10 @@ class Character(pygame.sprite.Sprite):
         # 마우스 위치와 캐릭터 위치 비교
         if pygame.mouse.get_pos()[0] < self.rect.centerx:
             image = self.image
+            self.direction = "left"
         else:
             image = pygame.transform.flip(self.image, True, False)
+            self.direction = "right"
 
         # 이미지 그리기
         screen.blit(image, self.rect)
