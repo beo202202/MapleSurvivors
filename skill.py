@@ -55,10 +55,16 @@ class Shell_Throwing(Skill):
         direction = pygame.math.Vector2(
             pos) - pygame.math.Vector2(player_rect.center)
         direction = direction.normalize()
-        distance = pygame.math.Vector2(
-            pos) - pygame.math.Vector2(player_rect.center)
+        distance = 100  # 캐릭터에서 이동할 거리
         self.pos = pygame.math.Vector2(
-            player_rect.center) + direction * (distance.length() + 30)
+            player_rect.center) + direction * distance
+        self.direction = direction * distance  # 방향 벡터 계산
 
-        # 이미지 출력
-        screen.blit(self.image, self.pos)
+        self.image_rect = self.image.get_rect(center=self.pos)
+        self.draw(screen)
+
+    def draw(self, screen):
+        if self.is_using():
+            self.image_rect.move_ip(
+                self.direction.normalize() * 10)  # 이동 거리를 10으로 조절
+            screen.blit(self.image, self.image_rect)
