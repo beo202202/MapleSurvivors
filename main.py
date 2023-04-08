@@ -21,8 +21,7 @@ def init_monsters(num_monsters, screen_size):
 
 def init_game_objects(screen_size):
     maple_island = MapleIsland(screen_size)
-    player = Beginner(
-        "imgs/dodo.png", (screen_size[0] // 2, screen_size[1] // 2), screen)
+    player = Beginner((screen_size[0] // 2, screen_size[1] // 2), screen)
     return maple_island, player
 
 
@@ -41,7 +40,7 @@ shell_throwing = Shell_Throwing()
 
 def restart_game():
     global maple_island, player, monster_list
-    player = Beginner("imgs/dodo.png", (WIN_WIDTH //
+    player = Beginner((WIN_WIDTH //
                       2, WIN_HEIGHT // 2), screen)
     monster_list = init_monsters(NUM_MONSTERS, (WIN_WIDTH, WIN_HEIGHT))
     maple_island = MapleIsland((WIN_WIDTH, WIN_HEIGHT))

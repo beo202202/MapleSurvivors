@@ -5,9 +5,10 @@ from pygame.locals import *
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, image_path, pos, screen):
-        self.image = pygame.image.load(image_path)
-        self.image = pygame.transform.scale(self.image, (50, 50))  # 이미지 축소
+    def __init__(self, pos, screen):
+        self.image_path = "imgs/dodo.png"
+        self.image = pygame.image.load(self.image_path)
+        self.image = pygame.transform.scale(self.image, (100, 100))  # 이미지 축소
         self.rect = self.image.get_rect()
         self.rect.center = pos
         self.screen = screen
@@ -45,8 +46,23 @@ class Character(pygame.sprite.Sprite):
         if self.check_collision(new_rect):
             self.rect = new_rect
 
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
+    def draw(self, screen):
+        # 마우스 위치와 캐릭터 위치 비교
+        if pygame.mouse.get_pos()[0] < self.rect.centerx:
+            image = self.image
+        else:
+            image = pygame.transform.flip(self.image, True, False)
+
+        # 이미지 그리기
+        screen.blit(image, self.rect)
+
+        # 캐릭터 위에 공격력과 방어력을 나타내는 문자열을 출력
+        font = pygame.font.SysFont(None, 30)
+        text = f"HP: {self.hp} / ATK: {self.physical_att} / DEF: {self.physical_def}"
+        text_surface = font.render(text, True, (255, 255, 255))
+        text_rect = text_surface.get_rect(
+            center=(self.rect.centerx, self.rect.bottom + 10))
+        screen.blit(text_surface, text_rect)
 
     def update(self, map_rect):
         # 캐릭터가 맵 밖으로 나가지 않도록 처리합니다.
@@ -59,18 +75,14 @@ class Character(pygame.sprite.Sprite):
             return False
         return True
 
-    # def hit(self, physical_att):
-    #     self.hp -= physical_att
-    #     # self.hp -= max(physical_att - self.physical_def, 1)
-    #     if self.hp <= 0:
-    #         # 게임 종료 또는 리스타트 등의 처리
-    #         pass
-
 
 class Beginner(Character):
-    def __init__(self, image_path, pos, screen):
-        super().__init__(image_path, pos, screen)
-        # 나중에 주사위 굴리는 것도 넣기 ㅋ.ㅋ _str, _dex, _int, _luk 넣기
+    def __init__(self, pos, screen):
+        super().__init__(pos, screen)
+        self.image_path = "imgs/beginner.png"
+        self.image = pygame.image.load(self.image_path)
+        self.image = pygame.transform.scale(self.image, (100, 100))  # 이미지 축소
+        self.name = "초보자"
         self.lv = 1
         self.hp = 60
         self.max_hp = 50
@@ -80,45 +92,38 @@ class Beginner(Character):
         self.magic_att = 7
         self.physical_def = 5
         self.magic_def = 2
-
-        self.skill_cool_time = 0
+        self.exp = 0
+        self.max_exp = 50
 
     def update_status(self):
-        self.hp = self.max_hp + 10 * self.lv
-        self.mp = self.max_mp + 5 * self.lv
-        self.physical_att = 10 + 5 * self.lv
-        self.magic_att = 5 + 2 * self.lv
+        self.max_hp = self.max_hp + 2 * self.max_hp
+        self.hp = self.max_hp
+        self.max_mp = self.max_mp + 2 * self.max_mp
+        self.mp = self.max_mp
+        self.physical_att = 10 + 2 * self.physical_att
+        self.magic_att = 5 + 2 * self.magic_att
 
     def level_up(self):
         if self.exp >= self.max_exp:
             self.lv += 1
-            self.exp = 0
-            self.max_exp = self.lv * 5
-            self.hp += 10
-            self.max_hp += 10
-            self.mp += 5
-            self.max_mp += 5
-            self.physical_att += 2
-            self.magic_att += 1
-            self.physical_def += 1
-            self.magic_def += 1
+
+            # 경험 남는 거 이전하기
+            self.exp -= self.max_exp
+            self.max_exp += self.max_exp * 2
+
+            self.max_hp += self.max_hp * 2
+            self.hp = self.max_hp
+
+            self.max_mp += self.max_mp * 2
+            self.mp = self.max_mp
+
+            self.physical_att += 5 + 2 * self.physical_att
+            self.physical_def += 3 + 1 * self.physical_def
+
+            self.magic_att += 5 + 2 * self.magic_att
+            self.magic_def += 1 + 1 * self.magic_def
+
             print(f"Level up! {self.name} is now level {self.lv}!")
 
             self.update_status()
             # 레벨업 이후에 추가적인 처리를 할 수 있음
-
-    # def attack(self, target):
-    #     damage = self.physical_att - target.physical_def
-    #     target.health -= damage
-
-    # def defend(self):
-    #     self.defense_power += 2
-
-    def draw(self, surface):
-        super().draw(surface)
-        # 캐릭터 위에 공격력과 방어력을 나타내는 문자열을 출력
-        font = pygame.font.SysFont(None, 30)
-        text = f"HP: {self.hp} / ATK: {self.physical_att} / DEF: {self.physical_def}"
-        text_surface = font.render(text, True, (255, 255, 255))
-        text_rect = text_surface.get_rect(center=self.rect.center)
-        surface.blit(text_surface, text_rect)
