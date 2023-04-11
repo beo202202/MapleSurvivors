@@ -1,3 +1,4 @@
+import sys
 import pygame
 import random
 from character import *
@@ -7,6 +8,9 @@ from skill import *
 
 WIN_WIDTH, WIN_HEIGHT = 1280, 1024
 NUM_MONSTERS = 50
+FPS = 60
+
+# 캐릭터와 몬스터가 30 fps로 줄었을 경우 느려짐 문제
 
 
 def init_monsters(num_monsters, screen_size):
@@ -36,6 +40,9 @@ maple_island, player = init_game_objects((WIN_WIDTH, WIN_HEIGHT))
 monster_list = init_monsters(NUM_MONSTERS, (WIN_WIDTH, WIN_HEIGHT))
 # 스킬 초기화
 shell_throwing = Shell_Throwing()
+
+# 클럭 객체 생성
+FPSCLOCK = pygame.time.Clock()
 
 
 def restart_game():
@@ -83,24 +90,24 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:  # 마우스 왼쪽 버튼 눌림
-                # 마우스 클릭 위치로 스킬 사용
-                shell_throwing.use(pygame.mouse.get_pos(),
-                                   player.rect, screen)
+            # if event.button == 1:  # 마우스 왼쪽 버튼 눌림
+            #     # 마우스 클릭 위치로 스킬 사용
+            #     shell_throwing.use(pygame.mouse.get_pos(),
+            #                        player.rect, screen)
             if event.button == 3:  # 마우스 오른쪽 버튼 눌림
                 restart_game()
 
-    # # 스킬 업데이트
-    # if shell_throwing.is_using() and not shell_throwing.is_available():
-    #     shell_throwing.start_cooldown()
-    # elif not shell_throwing.is_using() and shell_throwing.is_available():
-    #     shell_throwing.image = pygame.image.load(
-    #         "imgs/snail_shell.png").convert_alpha()
-    #     shell_throwing.image = pygame.transform.scale(
-    #         shell_throwing.image, (50, 50))
+    # 자동으로 쿨타임마다 스킬 쓰기
+    shell_throwing.use(pygame.mouse.get_pos(),
+                       player.rect, screen)
+
+    # 스킬 그리기
+    shell_throwing.draw(screen, FPS)
 
     # 게임 화면 업데이트
     pygame.display.update()
+
+    FPSCLOCK.tick(FPS)
 
 # 게임 종료
 pygame.quit()
