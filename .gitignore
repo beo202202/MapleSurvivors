@@ -6,3 +6,4 @@ dice.py
 dice2.py
 test*.py
 main2.py
+.env
