@@ -78,6 +78,7 @@ while running:
 
     # 몬스터 이동 및 충돌 검사
     for monster in monster_list:
+        monster.hurt_timer = max(0, monster.hurt_timer - 1)  # 추가
         monster.update(player.rect, screen.get_rect(), monster_list)
         monster.draw(screen)
 
@@ -98,11 +99,10 @@ while running:
                 restart_game()
 
     # 자동으로 쿨타임마다 스킬 쓰기
-    shell_throwing.use(pygame.mouse.get_pos(),
-                       player.rect, screen)
+    shell_throwing.use(player.rect, player.direction)
 
     # 스킬 그리기
-    shell_throwing.draw(screen, FPS)
+    shell_throwing.draw(screen, FPS, monster_list)
 
     # 게임 화면 업데이트
     pygame.display.update()

@@ -8,7 +8,9 @@ import random
 class Monster(pygame.sprite.Sprite):
     def __init__(self, image_path, map_size):
         super().__init__()
+        self.name = "monster"
         self.speed = 1
+        self.hurt_timer = 0  # 적중했을 때 빨간색으로 깜빡이는 시간
 
         self.lv = 1
         self.hp = 1
@@ -22,6 +24,7 @@ class Monster(pygame.sprite.Sprite):
 
         self.image = pygame.image.load(image_path).convert_alpha()
         self.image = pygame.transform.scale(self.image, (50, 50))
+        self.original_image = self.image.copy()  # 새로운 변수 추가
         self.radius = 25
         self.rect = self.image.get_rect()
 
@@ -85,12 +88,24 @@ class Monster(pygame.sprite.Sprite):
         self.center = self.rect.center
 
     def draw(self, screen):
+        if self.hurt_timer > 0:
+            self.image.fill((255, 0, 0, 255))
+            self.hurt_timer -= 1
+            if self.hurt_timer == 0:
+                self.image = self.original_image.copy()  # 복원하기
+            # print(f'{self.name=}, {self.hurt_timer=}')
         screen.blit(self.image, self.rect)
+
+    def get_damage(self, damage):
+        self.hp -= damage
+        if self.hp <= 0:
+            self.kill()
 
 
 class Snail(Monster):
     def __init__(self, pos):
         super().__init__("imgs/snail.png", pos)
+        self.name = "달팽이"
         self.speed = 1
 
         self.lv = 1
@@ -110,6 +125,7 @@ class Snail(Monster):
 class BlueSnail(Monster):
     def __init__(self, pos):
         super().__init__("imgs/blue_snail.png", pos)
+        self.name = "파란 달팽이"
         self.speed = 1
 
         self.lv = 2
@@ -129,6 +145,7 @@ class BlueSnail(Monster):
 class RedSnail(Monster):
     def __init__(self, pos):
         super().__init__("imgs/red_snail.png", pos)
+        self.name = "빨간 달팽이"
         self.speed = 1
 
         self.lv = 5
