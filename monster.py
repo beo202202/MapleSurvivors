@@ -106,12 +106,25 @@ class Monster(pygame.sprite.Sprite):
         # if self.rect.collidelist(visible_monster_rects) != -1:
         #     screen.blit(self.image, self.rect)
 
-        # 몬스터 위에 체력, 공격력과 방어력을 나타내는 문자열을 출력
-        text = f"HP: {self.hp} / ATK: {self.physical_att} / DEF: {self.physical_def}"
-        text_surface = self.font.render(text, True, (255, 255, 255))
-        text_rect = text_surface.get_rect(
+        # 몬스터 밑에 체력, 공격력과 방어력을 나타내는 문자열을 출력
+        font = pygame.font.SysFont(None, 30)
+        hp_text = f"HP: {self.hp}"
+        hp_text_surface = font.render(hp_text, True, (255, 0, 0))
+        hp_text_rect = hp_text_surface.get_rect(
             center=(self.rect.centerx, self.rect.bottom + 10))
-        screen.blit(text_surface, text_rect)
+        screen.blit(hp_text_surface, hp_text_rect)
+
+        att_text = f"ATK: {self.physical_att}"
+        att_text_surface = font.render(att_text, True, (0, 0, 255))
+        att_text_rect = att_text_surface.get_rect(
+            center=(self.rect.centerx, self.rect.bottom + 30))
+        screen.blit(att_text_surface, att_text_rect)
+
+        def_text = f"DEF: {self.physical_def}"
+        def_text_surface = font.render(def_text, True, (0, 255, 0))
+        def_text_rect = def_text_surface.get_rect(
+            center=(self.rect.centerx, self.rect.bottom + 50))
+        screen.blit(def_text_surface, def_text_rect)
 
     def get_damage(self, damage):
         self.hp -= damage

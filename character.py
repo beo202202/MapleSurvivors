@@ -59,13 +59,22 @@ class Character(pygame.sprite.Sprite):
         # 이미지 그리기
         screen.blit(image, self.rect)
 
-        # 캐릭터 위에 체력, 공격력과 방어력을 나타내는 문자열을 출력
+        # 캐릭터 밑에 체력, 공격력과 방어력을 나타내는 문자열을 출력
         font = pygame.font.SysFont(None, 30)
-        text = f"HP: {self.hp} / ATK: {self.physical_att} / DEF: {self.physical_def}"
-        text_surface = font.render(text, True, (255, 255, 255))
-        text_rect = text_surface.get_rect(
+
+        # HP 텍스트 출력 (빨간색)
+        hp_text = f"HP: {self.hp}"
+        hp_text_surface = font.render(hp_text, True, (255, 0, 0))
+        hp_text_rect = hp_text_surface.get_rect(
             center=(self.rect.centerx, self.rect.bottom + 10))
-        screen.blit(text_surface, text_rect)
+        screen.blit(hp_text_surface, hp_text_rect)
+
+        # MP 텍스트 출력 (파란색)
+        mp_text = f"MP: {self.mp}"
+        mp_text_surface = font.render(mp_text, True, (0, 0, 255))
+        mp_text_rect = mp_text_surface.get_rect(
+            center=(self.rect.centerx, self.rect.bottom + 30))
+        screen.blit(mp_text_surface, mp_text_rect)
 
     def update(self, map_rect):
         # 캐릭터가 맵 밖으로 나가지 않도록 처리합니다.

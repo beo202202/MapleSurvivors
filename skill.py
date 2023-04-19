@@ -8,7 +8,7 @@ class Skill():
         self.cooldown = cooldown
         self.start_time = None
         self.cooldown_time = 0
-        self.damage = 500
+        self.damage = 1
 
     def use(self, pos, player_rect, screen):
         self.start_time = pygame.time.get_ticks()
@@ -55,7 +55,7 @@ class Shell_Throwing(Skill):
         self.image = pygame.image.load("imgs/snail_shell.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (50, 50))
         self.radius = 25
-        self.damage = 300
+        self.damage = 1
 
     def use(self, player_rect, direction):
         if self.is_available():  # 스킬 사용 가능한 상태인지 체크
