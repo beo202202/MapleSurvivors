@@ -59,7 +59,7 @@ class Character(pygame.sprite.Sprite):
         # 이미지 그리기
         screen.blit(image, self.rect)
 
-        # 캐릭터 위에 공격력과 방어력을 나타내는 문자열을 출력
+        # 캐릭터 위에 체력, 공격력과 방어력을 나타내는 문자열을 출력
         font = pygame.font.SysFont(None, 30)
         text = f"HP: {self.hp} / ATK: {self.physical_att} / DEF: {self.physical_def}"
         text_surface = font.render(text, True, (255, 255, 255))

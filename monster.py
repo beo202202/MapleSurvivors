@@ -6,11 +6,13 @@ import random
 
 
 class Monster(pygame.sprite.Sprite):
-    def __init__(self, image_path, map_size):
+    def __init__(self, image_path, map_size, monster_list):
         super().__init__()
         self.name = "monster"
         self.speed = 1
         self.hurt_timer = 0  # 적중했을 때 빨간색으로 깜빡이는 시간
+        self.monster_list = monster_list
+        self.direction = random.choice(["left", "right", "up", "down"])
 
         self.lv = 1
         self.hp = 1
@@ -27,6 +29,9 @@ class Monster(pygame.sprite.Sprite):
         self.original_image = self.image.copy()  # 새로운 변수 추가
         self.radius = 25
         self.rect = self.image.get_rect()
+
+        # 폰트 미리 로드
+        self.font = pygame.font.SysFont(None, 30)
 
         # 원형 몬스터의 위치를 맵 바깥쪽 좌표로 랜덤하게 생성
         if random.choice([True, False]):
@@ -66,6 +71,7 @@ class Monster(pygame.sprite.Sprite):
             elif monster_rect.bottom > map_rect.bottom:
                 monster_rect.bottom = map_rect.bottom
 
+        # 0 디바이드 오류? + 모여서 멈추면 앞으로 안옴.
         # 몬스터끼리 충돌 검사
         # for other in monsters:
         #     if other != self and self.rect.colliderect(other.rect):
@@ -73,9 +79,9 @@ class Monster(pygame.sprite.Sprite):
         #             other.rect.centerx, self.rect.centery - other.rect.centery
         #         mag = (distance[0] ** 2 + distance[1] ** 2) ** 0.5
         #         overlap = (self.radius + other.radius) - mag
-            # direction = (distance[0] / mag, distance[1] / mag)
-            # self.rect.move_ip(
-            #     direction[0] * overlap, direction[1] * overlap)
+        #         direction = (distance[0] / mag, distance[1] / mag)
+        #         self.rect.move_ip(
+        #             direction[0] * overlap, direction[1] * overlap)
 
         # 플레이어와의 충돌 검사
         if self.rect.colliderect(char_rect):
@@ -96,15 +102,30 @@ class Monster(pygame.sprite.Sprite):
             # print(f'{self.name=}, {self.hurt_timer=}')
         screen.blit(self.image, self.rect)
 
+        # # 현재 몬스터의 위치 정보가 화면 안에 들어있는지 확인 (랙 안걸리는...)
+        # if self.rect.collidelist(visible_monster_rects) != -1:
+        #     screen.blit(self.image, self.rect)
+
+        # 몬스터 위에 체력, 공격력과 방어력을 나타내는 문자열을 출력
+        text = f"HP: {self.hp} / ATK: {self.physical_att} / DEF: {self.physical_def}"
+        text_surface = self.font.render(text, True, (255, 255, 255))
+        text_rect = text_surface.get_rect(
+            center=(self.rect.centerx, self.rect.bottom + 10))
+        screen.blit(text_surface, text_rect)
+
     def get_damage(self, damage):
         self.hp -= damage
         if self.hp <= 0:
-            self.kill()
+            self.kill(self.monster_list)  # 왜 킬이 안돼?
+
+    def kill(self, monster_list):
+        super().kill()  # 스프라이트 그룹에서 제거
+        monster_list.remove(self)  # monster_list에서도 제거
 
 
 class Snail(Monster):
-    def __init__(self, pos):
-        super().__init__("imgs/snail.png", pos)
+    def __init__(self, pos, monster_list):
+        super().__init__("imgs/snail.png", pos, monster_list)
         self.name = "달팽이"
         self.speed = 1
 
@@ -123,8 +144,8 @@ class Snail(Monster):
 
 
 class BlueSnail(Monster):
-    def __init__(self, pos):
-        super().__init__("imgs/blue_snail.png", pos)
+    def __init__(self, pos, monster_list):
+        super().__init__("imgs/blue_snail.png", pos, monster_list)
         self.name = "파란 달팽이"
         self.speed = 1
 
@@ -143,8 +164,8 @@ class BlueSnail(Monster):
 
 
 class RedSnail(Monster):
-    def __init__(self, pos):
-        super().__init__("imgs/red_snail.png", pos)
+    def __init__(self, pos, monster_list):
+        super().__init__("imgs/red_snail.png", pos, monster_list)
         self.name = "빨간 달팽이"
         self.speed = 1
 
