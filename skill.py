@@ -55,7 +55,9 @@ class Shell_Throwing(Skill):
         self.image = pygame.image.load("imgs/snail_shell.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (50, 50))
         self.radius = 25
-        self.damage = 1
+        self.damage = 10
+        self.rotation_angle = 0
+        self.rotation_speed = 50
 
     def use(self, player_rect, direction):
         if self.is_available():  # 스킬 사용 가능한 상태인지 체크
@@ -75,34 +77,22 @@ class Shell_Throwing(Skill):
             self.remaining_distance = distance
             self.start_cooldown()  # 스킬 사용 후 쿨타임 시작
 
-    def is_using(self):
-        if self.start_time is not None:
-            elapsed_time = pygame.time.get_ticks() - self.start_time
-            if elapsed_time >= self.duration:
-                self.start_time = None
-                return False
-            return True
-        return False
-
-    def is_available(self):
-        if self.cooldown_time == 0:
-            return True
-        elapsed_time = pygame.time.get_ticks() - self.cooldown_time
-        if elapsed_time >= self.cooldown:
-            self.cooldown_time = 0
-            return True
-        return False
-
-    def start_cooldown(self):
-        self.cooldown_time = pygame.time.get_ticks()
-
     def draw(self, screen, FPS, monsters):
         if self.is_using():
             move_amount = self.speed / FPS
             self.pos += self.direction * move_amount
             self.image_rect.center = self.pos
-            screen.blit(self.image, self.image_rect)
+            rotated_image = pygame.transform.rotate(
+                self.image, self.rotation_angle)
+            screen.blit(rotated_image, self.image_rect)
             super().hit(monsters)
-            self.remaining_distance -= move_amount
-            if self.remaining_distance <= 0:
-                self.start_time = None
+            for monster in monsters:
+                if self.image_rect.colliderect(monster.rect):
+                    self.start_time = None
+                    break
+            else:
+                self.rotation_angle += self.rotation_speed
+                self.remaining_distance -= move_amount
+                if self.remaining_distance <= 0 or self.start_time is None:
+                    self.start_time = None
+                    self.rotation_angle = 0
