@@ -45,7 +45,7 @@ class Skill():
     def hit(self, monsters):
         for monster in monsters:
             if self.image_rect.colliderect(monster.rect):
-                monster.get_damage(self.damage)
+                monster.get_damage(self.damage-monster.physical_def)
                 monster.hurt_timer = 30  # 적중했을 때 빨간색으로 깜빡이는 시간
 
 
