@@ -4,6 +4,7 @@ import pygame
 
 class Skill():
     def __init__(self, duration, cooldown):
+        self.lv = 1
         self.duration = duration
         self.cooldown = cooldown
         self.start_time = None
@@ -57,7 +58,7 @@ class Shell_Throwing(Skill):
         self.radius = 25
         self.damage = 10
         self.rotation_angle = 0
-        self.rotation_speed = 50
+        self.rotation_speed = 100
 
     def use(self, player_rect, direction):
         if self.is_available():  # 스킬 사용 가능한 상태인지 체크

@@ -129,7 +129,7 @@ class Monster(pygame.sprite.Sprite):
     def get_damage(self, damage):
         self.hp -= damage
         if self.hp <= 0:
-            self.kill(self.monster_list)  # 왜 킬이 안돼?
+            self.kill(self.monster_list)  # 킬이 됨.
 
     def kill(self, monster_list):
         super().kill()  # 스프라이트 그룹에서 제거
