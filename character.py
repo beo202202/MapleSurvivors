@@ -1,7 +1,6 @@
+# character.py
 import pygame
 from pygame.locals import *
-
-# character.py
 
 
 class Character(pygame.sprite.Sprite):

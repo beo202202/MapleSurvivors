@@ -1,8 +1,6 @@
+# monster.py
 import pygame
 import random
-# from character import Character
-
-# monster.py
 
 
 class Monster(pygame.sprite.Sprite):
@@ -29,8 +27,7 @@ class Monster(pygame.sprite.Sprite):
         self.original_image = self.image.copy()  # 새로운 변수 추가
         self.radius = 25
         self.rect = self.image.get_rect()
-
-        # 폰트 미리 로드
+       # 폰트 미리 로드
         self.font = pygame.font.SysFont(None, 30)
 
         # 원형 몬스터의 위치를 맵 바깥쪽 좌표로 랜덤하게 생성
