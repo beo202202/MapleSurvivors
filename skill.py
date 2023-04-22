@@ -1,19 +1,21 @@
-from skill import Skill, AnimatedSkill
-from skill import Skill
+# skill.py
 import pygame
 
 
-class Skill:
-    def __init__(self, image_path, duration, cooldown):
-        self.image = pygame.image.load(image_path)
+class Skill():
+    def __init__(self, duration, cooldown):
+        self.lv = 1
         self.duration = duration
         self.cooldown = cooldown
         self.start_time = None
         self.cooldown_time = 0
+        self.damage = 1
 
-    def use(self, pos):
+    def use(self, pos, player_rect, screen):
         self.start_time = pygame.time.get_ticks()
-        self.pos = pos
+        self.pos = pygame.math.Vector2(player_rect.center)
+        self.direction = pygame.math.Vector2(pos) - self.pos
+        self.image_rect = self.image.get_rect(center=self.pos)
 
     def is_using(self):
         if self.start_time is not None:
@@ -35,32 +37,63 @@ class Skill:
     def start_cooldown(self):
         self.cooldown_time = pygame.time.get_ticks()
 
-    def draw(self, screen):
+    def draw(self, screen, FPS):
         if self.is_using():
-            screen.blit(self.image, self.pos)
+            self.image_rect.move_ip(
+                self.direction.normalize() * self.speed // FPS)
+            screen.blit(self.image, self.image_rect)
+
+    def hit(self, monsters):
+        for monster in monsters:
+            if self.image_rect.colliderect(monster.rect):
+                monster.get_damage(self.damage-monster.physical_def)
+                monster.hurt_timer = 30  # 적중했을 때 빨간색으로 깜빡이는 시간
 
 
-class SnailGuardSkill(AnimatedSkill):
-    def __init__(self, image_path, radius, damage, duration, cooldown):
-        super().__init__(image_path, duration, cooldown)
-        self.radius = radius
-        self.damage = damage
-        self.skill_image_2 = pygame.image.load("img/throw_snail_2.gif")
-        self.skill_image_2 = pygame.transform.scale(
-            self.skill_image_2, (64, 64))
-        self.skill_image_frames = self.animate_gif(
-            self.skill_image, num_frames=10, frame_duration=100, loop=True)
-        self.skill_image_2_frames = self.animate_gif(
-            self.skill_image_2, num_frames=10, frame_duration=100, loop=True)
+class Shell_Throwing(Skill):
+    def __init__(self):
+        super().__init__(2000, 3000)  # duration: 2초, cooldown: 3초
+        self.image = pygame.image.load("imgs/snail_shell.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (50, 50))
+        self.radius = 25
+        self.damage = 10
+        self.rotation_angle = 0
+        self.rotation_speed = 100
 
-    def use(self, pos, monsters):
-        for monster_rect, monster_image in monsters:
-            if pygame.math.Vector2(monster_rect.center - pos).length() <= self.radius:
-                monster_rect.move_ip(10, 0)
-                # 몬스터에게 데미지를 입히는 코드 추가
-                self.play_animation(self.skill_image_2_frames, 500)
-                pygame.time.wait(500)
-                self.play_animation(self.skill_image_frames, self.duration)
-                break
+    def use(self, player_rect, direction):
+        if self.is_available():  # 스킬 사용 가능한 상태인지 체크
+            self.start_time = pygame.time.get_ticks()
+            if direction == "left":
+                self.direction = pygame.math.Vector2(-1, 0)
             else:
-                self.play_animation(self.skill_image_frames, self.duration)
+                self.direction = pygame.math.Vector2(1, 0)
+            # 마우스 방향으로 벡터 추후 쓸 수 있으니 킵하자
+            # self.direction = (
+            #     pos - pygame.math.Vector2(player_rect.center)).normalize()
+            distance = 100
+            self.pos = pygame.math.Vector2(
+                player_rect.center)  # + self.direction * distance
+            self.image_rect = self.image.get_rect(center=self.pos)
+            self.speed = distance // (self.duration // 2000)
+            self.remaining_distance = distance
+            self.start_cooldown()  # 스킬 사용 후 쿨타임 시작
+
+    def draw(self, screen, FPS, monsters):
+        if self.is_using():
+            move_amount = self.speed / FPS
+            self.pos += self.direction * move_amount
+            self.image_rect.center = self.pos
+            rotated_image = pygame.transform.rotate(
+                self.image, self.rotation_angle)
+            screen.blit(rotated_image, self.image_rect)
+            super().hit(monsters)
+            for monster in monsters:
+                if self.image_rect.colliderect(monster.rect):
+                    self.start_time = None
+                    break
+            else:
+                self.rotation_angle += self.rotation_speed
+                self.remaining_distance -= move_amount
+                if self.remaining_distance <= 0 or self.start_time is None:
+                    self.start_time = None
+                    self.rotation_angle = 0
