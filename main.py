@@ -5,12 +5,18 @@ from character import *
 from monster import *
 from map import *
 from skill import *
+from sound import SoundManager
 
 WIN_WIDTH, WIN_HEIGHT = 1280, 1024
 NUM_MONSTERS = 10
 FPS = 60
 
 # 캐릭터와 몬스터가 30 fps로 줄었을 경우 느려짐 문제
+
+
+# 사운드 매니저 초기화
+sound_manager = SoundManager()
+sound_manager.play_background_music()
 
 
 def init_monsters(num_monsters, screen_size):
@@ -95,15 +101,12 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            # if event.button == 1:  # 마우스 왼쪽 버튼 눌림
-            #     # 마우스 클릭 위치로 스킬 사용
-            #     shell_throwing.use(pygame.mouse.get_pos(),
-            #                        player.rect, screen)
             if event.button == 3:  # 마우스 오른쪽 버튼 눌림
                 restart_game()
 
     # 자동으로 쿨타임마다 스킬 쓰기
-    shell_throwing.use(player.rect, player.direction)
+    if shell_throwing.use(player.rect, player.direction):
+        sound_manager.play_effect_sound("attack")
 
     # 스킬 그리기
     shell_throwing.draw(screen, FPS, monster_list)
