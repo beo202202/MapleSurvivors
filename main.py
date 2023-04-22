@@ -22,7 +22,7 @@ sound_manager.play_background_music()
 def init_monsters(num_monsters, screen_size):
     monster_list = []
     for i in range(num_monsters):
-        monster_type = random.choice([Snail, BlueSnail, RedSnail])
+        monster_type = random.choice([Snail, BlueSnail, Spore])
         monster = monster_type(
             (random.randint(100, screen_size[0] - 100), random.randint(100, screen_size[1] - 100)), monster_list)
         monster_list.append(monster)

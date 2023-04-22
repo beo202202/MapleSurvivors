@@ -135,7 +135,7 @@ class Monster(pygame.sprite.Sprite):
 
 class Snail(Monster):
     def __init__(self, pos, monster_list):
-        super().__init__("imgs/snail.png", pos, monster_list)
+        super().__init__("imgs/Snail/stand_0.png", pos, monster_list)
         self.name = "달팽이"
         self.speed = 1
 
@@ -155,7 +155,7 @@ class Snail(Monster):
 
 class BlueSnail(Monster):
     def __init__(self, pos, monster_list):
-        super().__init__("imgs/blue_snail.png", pos, monster_list)
+        super().__init__("imgs/Blue Snail/stand_0.png", pos, monster_list)
         self.name = "파란 달팽이"
         self.speed = 1
 
@@ -173,9 +173,49 @@ class BlueSnail(Monster):
         self.meso = 10
 
 
+class Spore(Monster):
+    def __init__(self, pos, monster_list):
+        super().__init__("imgs/Spore/stand_0.png", pos, monster_list)
+        self.name = "스포아"
+        self.speed = 1
+
+        self.lv = 3
+        self.hp = 20
+        self.max_hp = 20
+        self.mp = 0
+        self.max_mp = 0
+        self.physical_att = 3
+        self.magic_att = 2
+        self.physical_def = 0
+        self.magic_def = 0
+
+        self.exp = 5
+        self.meso = 10
+
+
+class Stump(Monster):
+    def __init__(self, pos, monster_list):
+        super().__init__("imgs/Stump/stand_0.png", pos, monster_list)
+        self.name = "스텀프"
+        self.speed = 1
+
+        self.lv = 4
+        self.hp = 35
+        self.max_hp = 35
+        self.mp = 0
+        self.max_mp = 0
+        self.physical_att = 10
+        self.magic_att = 7
+        self.physical_def = 0
+        self.magic_def = 0
+
+        self.exp = 6
+        self.meso = 10
+
+
 class RedSnail(Monster):
     def __init__(self, pos, monster_list):
-        super().__init__("imgs/red_snail.png", pos, monster_list)
+        super().__init__("imgs/Red Snail/stand_0.png", pos, monster_list)
         self.name = "빨간 달팽이"
         self.speed = 1
 
@@ -191,3 +231,63 @@ class RedSnail(Monster):
 
         self.exp = 8
         self.meso = 15
+
+
+class Slime(Monster):
+    def __init__(self, pos, monster_list):
+        super().__init__("imgs/Slime/stand_0.png", pos, monster_list)
+        self.name = "슬라임"
+        self.speed = 1
+
+        self.lv = 7
+        self.hp = 80
+        self.max_hp = 80
+        self.mp = 10
+        self.max_mp = 10
+        self.physical_att = 25
+        self.magic_att = 19
+        self.physical_def = 5
+        self.magic_def = 10
+
+        self.exp = 12
+        self.meso = 18
+
+
+class Pig(Monster):
+    def __init__(self, pos, monster_list):
+        super().__init__("imgs/Pig/stand_0.png", pos, monster_list)
+        self.name = "돼지"
+        self.speed = 1
+
+        self.lv = 7
+        self.hp = 80
+        self.max_hp = 80
+        self.mp = 10
+        self.max_mp = 10
+        self.physical_att = 25
+        self.magic_att = 19
+        self.physical_def = 5
+        self.magic_def = 10
+
+        self.exp = 12
+        self.meso = 18
+
+
+class Orange_Mushroom(Monster):
+    def __init__(self, pos, monster_list):
+        super().__init__("imgs/Orange Mushroom/stand_0.png", pos, monster_list)
+        self.name = "주황버섯"
+        self.speed = 1
+
+        self.lv = 7
+        self.hp = 80
+        self.max_hp = 80
+        self.mp = 10
+        self.max_mp = 10
+        self.physical_att = 25
+        self.magic_att = 19
+        self.physical_def = 5
+        self.magic_def = 10
+
+        self.exp = 12
+        self.meso = 18
