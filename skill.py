@@ -77,6 +77,8 @@ class Shell_Throwing(Skill):
             self.speed = distance // (self.duration // 2000)
             self.remaining_distance = distance
             self.start_cooldown()  # 스킬 사용 후 쿨타임 시작
+            return True
+        return False
 
     def draw(self, screen, FPS, monsters):
         if self.is_using():

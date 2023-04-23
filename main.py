@@ -5,6 +5,7 @@ from character import *
 from monster import *
 from map import *
 from skill import *
+from sound import SoundManager
 
 WIN_WIDTH, WIN_HEIGHT = 1280, 1024
 NUM_MONSTERS = 10
@@ -13,10 +14,15 @@ FPS = 60
 # 캐릭터와 몬스터가 30 fps로 줄었을 경우 느려짐 문제
 
 
+# 사운드 매니저 초기화
+sound_manager = SoundManager()
+sound_manager.play_background_music()
+
+
 def init_monsters(num_monsters, screen_size):
     monster_list = []
     for i in range(num_monsters):
-        monster_type = random.choice([Snail, BlueSnail, RedSnail])
+        monster_type = random.choice([Snail, BlueSnail, Spore])
         monster = monster_type(
             (random.randint(100, screen_size[0] - 100), random.randint(100, screen_size[1] - 100)), monster_list)
         monster_list.append(monster)
@@ -35,6 +41,15 @@ pygame.init()
 
 screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption("Maple Survivors")
+
+# 타이틀 설정
+pygame.display.set_caption("시간 표시 예제")
+
+# 폰트 시스템 초기화
+pygame.font.init()
+
+# 폰트 초기화
+font = pygame.font.Font(None, 36)
 
 # 게임 맵, 캐릭터, 몬스터 초기화
 maple_island, player, monster_list = init_game_objects((WIN_WIDTH, WIN_HEIGHT))
@@ -77,8 +92,6 @@ while running:
     # 게임 맵 그리기
     maple_island.draw(screen)
 
-    # visible_monster_rects = []  # 화면 안에 들어있는 몬스터들의 위치 정보 저장
-
     # 몬스터 이동 및 충돌 검사
     for monster in monster_list:
         monster.hurt_timer = max(0, monster.hurt_timer - 1)  # 추가
@@ -95,15 +108,25 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            # if event.button == 1:  # 마우스 왼쪽 버튼 눌림
-            #     # 마우스 클릭 위치로 스킬 사용
-            #     shell_throwing.use(pygame.mouse.get_pos(),
-            #                        player.rect, screen)
             if event.button == 3:  # 마우스 오른쪽 버튼 눌림
                 restart_game()
 
+    # 현재 시간을 계산하고 이를 분과 초로 변환
+    current_time = pygame.time.get_ticks()
+    minutes = current_time // (60 * 1000)  # 밀리초를 분으로 변환
+    seconds = (current_time % (60 * 1000)) // 1000  # 밀리초를 초로 변환
+
+    # 시간 텍스트 생성
+    time_text = font.render(
+        f"{minutes:02d}:{seconds:02d}", True, (255, 255, 255))
+
+    # 시간 텍스트를 화면 상단 중앙에 그리기
+    screen.blit(time_text, (WIN_WIDTH // 2 - time_text.get_width() //
+                2, 10))
+
     # 자동으로 쿨타임마다 스킬 쓰기
-    shell_throwing.use(player.rect, player.direction)
+    if shell_throwing.use(player.rect, player.direction):
+        sound_manager.play_effect_sound("attack")
 
     # 스킬 그리기
     shell_throwing.draw(screen, FPS, monster_list)
