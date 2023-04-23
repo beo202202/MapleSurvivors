@@ -8,10 +8,10 @@ from skill import *
 from sound import SoundManager
 
 WIN_WIDTH, WIN_HEIGHT = 1280, 1024
-NUM_MONSTERS = 10
+NUM_MONSTERS = 20
 FPS = 60
-
-# 캐릭터와 몬스터가 30 fps로 줄었을 경우 느려짐 문제
+# 스테이지 변수
+stage = 0
 
 
 # 사운드 매니저 초기화
@@ -21,11 +21,11 @@ sound_manager.play_background_music()
 
 def init_monsters(num_monsters, screen_size):
     monster_list = []
-    for i in range(num_monsters):
-        monster_type = random.choice([Snail, BlueSnail, Spore])
-        monster = monster_type(
-            (random.randint(100, screen_size[0] - 100), random.randint(100, screen_size[1] - 100)), monster_list)
-        monster_list.append(monster)
+    # for i in range(num_monsters):
+    # monster_type = random.choice([Snail, BlueSnail, Spore])
+    # monster = monster_type(
+    #     (random.randint(100, screen_size[0] - 100), random.randint(100, screen_size[1] - 100)), monster_list)
+    # monster_list.append(monster)
     return monster_list
 
 
@@ -67,6 +67,43 @@ def restart_game():
                       2, WIN_HEIGHT // 2), screen)
     monster_list = init_monsters(NUM_MONSTERS, (WIN_WIDTH, WIN_HEIGHT))
     maple_island = MapleIsland((WIN_WIDTH, WIN_HEIGHT))
+
+# 스테이지를 업데이트하는 함수
+
+
+def update_stage(current_time):
+    global stage, monster_list
+    stage_duration = 5 * 1000  # 스테이지의 지속 시간 (1분)
+
+    # 스테이지 업데이트
+    new_stage = current_time // stage_duration + 1
+
+    if new_stage != stage:
+        stage = new_stage
+
+        # 스테이지별 몬스터 리스트 변경
+        if stage == 1:
+            num_new_monsters = 5
+            new_monster_types = [Snail]
+        elif stage == 2:
+            num_new_monsters = 7
+            new_monster_types = [Snail, BlueSnail]
+        elif stage == 3:
+            num_new_monsters = 5
+            new_monster_types = [Snail, BlueSnail, Spore]
+        elif stage == 4:
+            num_new_monsters = 7
+            new_monster_types = [BlueSnail, Spore, Stump]
+        else:
+            num_new_monsters = 5
+            new_monster_types = [Orange_Mushroom]
+
+        # 새로운 몬스터를 기존 몬스터 리스트에 추가합니다.
+        for i in range(num_new_monsters):
+            monster_type = random.choice(new_monster_types)
+            monster = monster_type(
+                (random.randint(100, WIN_WIDTH - 100), random.randint(100, WIN_HEIGHT - 100)), monster_list)
+            monster_list.append(monster)
 
 
 # 게임 루프
@@ -115,6 +152,16 @@ while running:
     current_time = pygame.time.get_ticks()
     minutes = current_time // (60 * 1000)  # 밀리초를 분으로 변환
     seconds = (current_time % (60 * 1000)) // 1000  # 밀리초를 초로 변환
+
+    # 스테이지 업데이트
+    update_stage(current_time)
+
+    # 스테이지 텍스트 생성
+    stage_text = font.render(
+        f"Stage {stage} FPS {int(FPSCLOCK.get_fps())}", True, (255, 255, 255))
+
+    # 스테이지 텍스트 그리기
+    screen.blit(stage_text, (10, 10))
 
     # 시간 텍스트 생성
     time_text = font.render(
